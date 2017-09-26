@@ -44,7 +44,7 @@
       </header>
       <hr>
       <div v-if="loading" id="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-      <p v-for="chat in chats">{{chat.title}}</p>
+      <a v-for="chat in chats">{{chat.title}} {{chat.id}}</a>
     </div>
 
 
