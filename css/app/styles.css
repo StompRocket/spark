@@ -1,0 +1,69 @@
+html, body, main {
+  height: 100%;
+}
+
+#chatNav {
+  padding: 1%;
+  height: 100%;
+}
+
+#loading {
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+}
+
+.message {
+  width: 80%;
+  border-bottom-color: rgb(224, 224, 224);
+  border-bottom-style: solid;
+  border-width: thin;
+  padding: 1%;
+  margin-bottom: 20px;
+}
+
+.messageImage {
+  width: 3%;
+  float: left;
+  display: inline;
+  margin-right: 5px;
+}
+
+.messageText {
+  width: 95%;
+  display: inline;
+}
+
+.messageSender {
+  width: 95%;
+  display: inline;
+  width: 200;
+  color: #838383;
+}
+
+#newMessageForm {
+  width: 100%;
+}
+
+#newMessageInputContainer {
+  display: inline-block;
+  float: left;
+  width: 90%;
+}
+
+#newMessageContanier {
+  position: absolute;
+  bottom: 0;
+  width: 66%;
+}
+
+#sendBtn {
+  width: 8%;
+  display: inline-block;
+}
+
+.profileImage {
+  height: auto;
+  width: 2%!important;
+  ;
+}
