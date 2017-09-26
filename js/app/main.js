@@ -97,6 +97,14 @@ var app = new Vue({
     })
   },
   methods: {
+    openChat: function (chat) {
+      var stateObj = { foo: 'bar' }
+      history.pushState(stateObj, 'Spark', '?c=' + chat)
+      global.chat()
+    },
+    getURL: function (chat) {
+      return '/?c=' + chat
+    },
     send: function () {
       // console.log(chat, app.message)
       var message = app.message
@@ -188,6 +196,7 @@ var app = new Vue({
         }
       }).then(function (snap) {
         // console.log(key)
+        var stateObj = { foo: 'bar' }
         history.pushState(stateObj, 'Spark', '?c=' + key)
         global.chat()
         app.title = ''
