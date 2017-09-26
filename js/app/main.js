@@ -40,7 +40,7 @@ var app = new Vue({
   el: '#app',
   data: {
     loginText: 'Login',
-    profileImage: '/images/profile_placeholder.png',
+    profileImage: './images/profile_placeholder.png',
     title: '',
     messages: [],
     chatTitle: '',
@@ -92,7 +92,7 @@ var app = new Vue({
         })
       } else {
         app.loginText = 'Login'
-        app.profileImage = '/images/profile_placeholder.png'
+        app.profileImage = './images/profile_placeholder.png'
       }
     })
   },
@@ -150,7 +150,7 @@ var app = new Vue({
       var result = image
 
       if (image == 'spark') {
-        result = '/images/profile_placeholder.png'
+        result = './images/profile_placeholder.png'
       }
 
       return result
