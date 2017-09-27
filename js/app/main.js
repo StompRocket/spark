@@ -56,7 +56,9 @@ var app = new Vue({
     chats: [],
     loading: true,
     message: '',
-    welcome: true
+    welcome: true,
+    teamCode: '',
+    sharing: false
   },
   mounted: function () {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -126,6 +128,78 @@ var app = new Vue({
     })
   },
   methods: {
+    addTeamSubmit: function () {
+      var teamdialog = document.querySelector('#addTeamDialog')
+      teamdialog.close()
+      var code = app.teamCode
+      // console.log(code)
+      firebase.database().ref('codeRef/' + code).once('value').then(function (snapshot) {
+        var chatID = snapshot.val().chatID
+        // console.log(snapshot.val())
+
+        history.pushState({
+
+          foo: chatID
+        }, 'Spark', '?c=' + chatID)
+        global.chat()
+        app.welcome = false
+      })
+      app.teamCode = ''
+    },
+    addTeam: function () {
+      var teamdialog = document.querySelector('#addTeamDialog')
+      if (!teamdialog.showModal) {
+        dialogPolyfill.registerDialog(teamdialog)
+      }
+      teamdialog.showModal()
+      teamdialog.querySelector('.close').addEventListener('click', function () {
+        teamdialog.close()
+      })
+    },
+    chatURL: function () {
+      return window.location.href
+    },
+    chatCode: function () {
+      if (app.sharing) {
+        function generateChatID () {
+          // I generate the UID from two parts here
+          // to ensure the random number provide enough bits.
+          var firstPart = (Math.random() * 46656) | 0
+          var secondPart = (Math.random() * 46656) | 0
+          firstPart = ('000' + firstPart.toString(36)).slice(-3)
+          secondPart = ('000' + secondPart.toString(36)).slice(-3)
+          return firstPart + secondPart
+        }
+
+        function getJsonFromUrl () {
+          var query = location.search.substr(1)
+          var result = {}
+          query.split('&').forEach(function (part) {
+            var item = part.split('=')
+            result[item[0]] = decodeURIComponent(item[1])
+          })
+          return result
+        }
+        var chat = getJsonFromUrl().c
+        var code = generateChatID()
+        firebase.database().ref('codeRef/' + code).set({
+          chatID: chat
+        })
+        return code
+      }
+    },
+    openShareDialog: function () {
+      app.sharing = true
+      var dialog = document.querySelector('#shareDialog')
+      if (!dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog)
+      }
+      dialog.showModal()
+      dialog.querySelector('.close').addEventListener('click', function () {
+        dialog.close()
+        app.sharing = false
+      })
+    },
     openChat: function (chat) {
       var stateObj = {
         foo: 'bar'
@@ -242,7 +316,7 @@ var app = new Vue({
       }
     },
     newTeam: function () {
-      var dialog = document.querySelector('dialog')
+      var dialog = document.querySelector('#newTeamDialog')
       if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog)
       }

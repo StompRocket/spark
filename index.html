@@ -13,8 +13,8 @@
 
 <body>
   <main class="mdl-grid" id="app">
-    <dialog style="width: 30%;" class="mdl-dialog">
-      <h4 class="mdl-dialog__title">New Team Members</h4>
+    <dialog id="newTeamDialog" style="width: 30%;" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">New Team Name</h4>
       <div class="mdl-dialog__content">
         <form @submit.prevent="newTeamSubmit" action="#">
           <div style="width: 100%;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -28,6 +28,33 @@
         <button type="button" class="mdl-button close">Cancel</button>
       </div>
     </dialog>
+    <dialog id="addTeamDialog" style="width: 30%;" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Add A Team</h4>
+      <div class="mdl-dialog__content">
+        <form @submit.prevent="addTeamSubmit" action="#">
+          <div style="width: 100%;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input v-model="teamCode" style="width: 100%;" class="mdl-textfield__input" required type="text" placeholder="" id="teamCode">
+            <label class="mdl-textfield__label" for="teamCode">Team Code</label>
+          </div>
+        </form>
+      </div>
+      <div class="mdl-dialog__actions">
+
+        <button type="button" class="mdl-button close">Cancel</button>
+      </div>
+    </dialog>
+    <dialog id="shareDialog" style="width: 30%;" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Share This Team</h4>
+      <div class="mdl-dialog__content">
+        <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a>{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then have them paste it into
+          the dialog.</p>
+
+      </div>
+      <div class="mdl-dialog__actions">
+
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+    </dialog>
     <div id="chatNav" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
       <header style="width: 100%; margin-bottom: 5px;">
         <button id="menu" class="mdl-button mdl-js-button mdl-button--icon">
@@ -36,6 +63,12 @@
         <button @click="newTeam" class="mdl-button mdl-js-button mdl-button--primary">
           New Team
         </button>
+        <button @click="addTeam" class="mdl-button mdl-js-button mdl-button--primary">
+          Add Team
+        </button>
+        <button v-if="!welcome" @click="openShareDialog" style="float: right; text-align:center;" class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">share</i>
+</button>
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu">
           <li class="mdl-menu__item"> <img class="profileImage" :src="profileImage" alt=""></li>
           <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Settings</li>
