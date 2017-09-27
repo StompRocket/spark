@@ -1,3 +1,4 @@
+window.alert('loaded')
 try {
   var database = firebase.database()
   var global = {
