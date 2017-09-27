@@ -1,109 +1,110 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <title>Spark | Real time comunication for teams</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-orange.min.css">
-        <link rel="stylesheet" href="./js/app/dialog-polyfill.css">
-        <link rel="stylesheet" href="./css/app/styles.css">
+<head>
+  <meta charset="utf-8">
+  <title>Spark | Real time comunication for teams</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-orange.min.css">
+  <link rel="stylesheet" href="./js/app/dialog-polyfill.css">
+  <link rel="stylesheet" href="./css/app/styles.css">
 
-    </head>
+</head>
 
-    <body>
-        <main class="mdl-grid" id="app">
-            <dialog style="width: 30%;" class="mdl-dialog">
-                <h4 class="mdl-dialog__title">New Team Members</h4>
-                <div class="mdl-dialog__content">
-                    <form @submit.prevent="newTeamSubmit" action="#">
-                        <div style="width: 100%;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input v-model="title" style="width: 100%;" class="mdl-textfield__input" required type="text" placeholder="" id="newTeamMembers">
-                            <label class="mdl-textfield__label" for="newTeamMembers">New Team Name</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="mdl-dialog__actions">
+<body>
+  <main class="mdl-grid" id="app">
+    <dialog style="width: 30%;" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">New Team Members</h4>
+      <div class="mdl-dialog__content">
+        <form @submit.prevent="newTeamSubmit" action="#">
+          <div style="width: 100%;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input v-model="title" style="width: 100%;" class="mdl-textfield__input" required type="text" placeholder="" id="newTeamMembers">
+            <label class="mdl-textfield__label" for="newTeamMembers">New Team Name</label>
+          </div>
+        </form>
+      </div>
+      <div class="mdl-dialog__actions">
 
-                    <button type="button" class="mdl-button close">Cancel</button>
-                </div>
-            </dialog>
-            <div id="chatNav" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-                <header style="width: 100%; margin-bottom: 5px;">
-                    <button id="menu" class="mdl-button mdl-js-button mdl-button--icon">
+        <button type="button" class="mdl-button close">Cancel</button>
+      </div>
+    </dialog>
+    <div id="chatNav" class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+      <header style="width: 100%; margin-bottom: 5px;">
+        <button id="menu" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">more_vert</i>
         </button>
-                    <button @click="newTeam" class="mdl-button mdl-js-button mdl-button--primary">
+        <button @click="newTeam" class="mdl-button mdl-js-button mdl-button--primary">
           New Team
         </button>
-                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu">
-                        <li class="mdl-menu__item"> <img class="profileImage" :src="profileImage" alt=""></li>
-                        <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Settings</li>
-                        <li @click="login" class="mdl-menu__item">{{loginText}}</li>
-                    </ul>
-                </header>
-                <hr>
-                <div v-if="loading" id="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)">{{chat.title}} {{chat.id}}</a>
-            </div>
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu">
+          <li class="mdl-menu__item"> <img class="profileImage" :src="profileImage" alt=""></li>
+          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Settings</li>
+          <li @click="login" class="mdl-menu__item">{{loginText}}</li>
+        </ul>
+      </header>
+      <hr>
+      <div v-if="loading" id="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+      <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)">{{chat.title}} {{chat.id}}</a>
+    </div>
 
 
 
 
-            </div>
-            <div class="mdl-cell mdl-cell--8-col">
-                <div v-for="message in messages" id="messagesContainer">
-                    <div class="message">
-                        <img class="messageImage" :src="getProfileImage(message.sender.image)" alt="">
-                        <p class="messageText">{{message.text}}</p>
-                        <br>
-                        <p class="messageSender">{{message.sender.name}}</p>
-                    </div>
+    </div>
+    <div id="messagesPannel" class="mdl-cell mdl-cell--8-col">
+      <div v-for="message in messages" id="messagesContainer">
+        <div class="message">
+          <img class="messageImage" :src="getProfileImage(message.sender.image)" alt="">
+          <p class="messageText">{{message.text}}</p>
+          <br>
+          <p class="messageSender">{{message.sender.name}}</p>
+        </div>
 
-                </div>
-                <div id="toast" class="mdl-js-snackbar mdl-snackbar">
-                    <div class="mdl-snackbar__text"></div>
-                    <button class="mdl-snackbar__action" type="button"></button>
-                </div>
-                <div id="newMessageContanier">
-                    <form v-on:submit.prevent="send" id="newMessageForm" action="#">
-                        <div id="newMessageInputContainer" class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" v-model="message" type="text" id="newMessage">
-                            <label class="mdl-textfield__label" for="newMessage">Message...</label>
-                        </div>
-                        <!-- Accent-colored raised button with ripple -->
-                        <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-          Send
-          </button>
-                    </form>
-
-                </div>
+      </div>
+      <div id="messageBlock"></div>
+      <div id="toast" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+      </div>
 
 
-            </div>
 
+    </div>
 
-        </main>
-        <script src="https://unpkg.com/vue" charset="utf-8"></script>
-        <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyC33Gp6-aRbajLAp22adwWJdIvXX4CVHcM",
-                authDomain: "spark-524b4.firebaseapp.com",
-                databaseURL: "https://spark-524b4.firebaseio.com",
-                projectId: "spark-524b4",
-                storageBucket: "",
-                messagingSenderId: "1043381207552"
-            };
-            firebase.initializeApp(config);
-            var provider = new firebase.auth.GoogleAuthProvider();
-        </script>
-        <script src="./js/app/dialog-polyfill.js" charset="utf-8"></script>
-        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <div class=" mdl-shadow--2dp" id="newMessageContanier">
+      <form style="float: right;" v-on:submit.prevent="send" id="newMessageForm" action="#">
+        <div id="newMessageInputContainer" class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" v-model="message" type="text" id="newMessage">
+          <label class="mdl-textfield__label" for="newMessage">Message...</label>
+        </div>
+        <!-- Accent-colored raised button with ripple -->
+        <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+            Send
+            </button>
+      </form>
 
-        <script src="./js/app/main.js" charset="utf-8"></script>
-    </body>
+    </div>
+  </main>
+  <script src="https://unpkg.com/vue" charset="utf-8"></script>
+  <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyC33Gp6-aRbajLAp22adwWJdIvXX4CVHcM",
+      authDomain: "spark-524b4.firebaseapp.com",
+      databaseURL: "https://spark-524b4.firebaseio.com",
+      projectId: "spark-524b4",
+      storageBucket: "",
+      messagingSenderId: "1043381207552"
+    };
+    firebase.initializeApp(config);
+    var provider = new firebase.auth.GoogleAuthProvider();
+  </script>
+  <script src="./js/app/dialog-polyfill.js" charset="utf-8"></script>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <script src="./js/app/main.js" charset="utf-8"></script>
+</body>
 
 </html>

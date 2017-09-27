@@ -5,6 +5,9 @@ html, body, main {
 #chatNav {
   padding: 1%;
   height: 100%;
+  position: fixed!important;
+  top: 0!important;
+  width: 33%!important;
 }
 
 #loading {
@@ -20,6 +23,13 @@ html, body, main {
   border-width: thin;
   padding: 1%;
   margin-bottom: 20px;
+}
+
+#messageBlock {
+  height: 5%;
+  bottom: 0;
+  display: block;
+  width: 100%;
 }
 
 .messageImage {
@@ -52,9 +62,15 @@ html, body, main {
 }
 
 #newMessageContanier {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 66%;
+  float: right;
+  text-align: right;
+  background-color: white;
+  margin-left: 33% !important;
+  padding: 0.5%;
+  padding-top: 1%;
 }
 
 #sendBtn {
@@ -64,6 +80,9 @@ html, body, main {
 
 .profileImage {
   height: auto;
-  width: 2%!important;
-  ;
+  width: 50%!important;
+}
+
+#messagesContainer, #messagesPannel {
+  margin-left: 22% !important;
 }
