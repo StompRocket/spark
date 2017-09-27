@@ -111,7 +111,7 @@
     <div class=" mdl-shadow--2dp" id="newMessageContanier">
       <form style="float: right;" v-on:submit.prevent="send" id="newMessageForm" action="#">
         <div id="newMessageInputContainer" class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" v-model="message" type="text" id="newMessage">
+          <input class="mdl-textfield__input" autocomplete="false" v-model="message" type="text" id="newMessage">
           <label class="mdl-textfield__label" for="newMessage">Message...</label>
         </div>
         <!-- Accent-colored raised button with ripple -->
