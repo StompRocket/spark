@@ -28,7 +28,7 @@ var global = {
     var chatRef = firebase.database().ref('chats/' + chat)
     chatRef.on('value', function (snapshot) {
       if (!snapshot.val()) {
-        window.location.href = '/'
+        window.location.href = './'
       }
       app.messages = snapshot.val().mesages
 
