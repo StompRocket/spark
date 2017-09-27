@@ -39,6 +39,7 @@ var global = {
         id: chat
       })
       setTimeout(function () {
+        document.documentElement.scrollTop = document.body.scrollHeight
         document.body.scrollTop = document.body.scrollHeight
         //  console.log('scrolled')
       }, 200)
