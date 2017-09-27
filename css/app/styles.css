@@ -37,6 +37,7 @@ html, body, main {
   float: left;
   display: inline;
   margin-right: 5px;
+  border-radius: 50%;
 }
 
 .messageText {
@@ -81,6 +82,7 @@ html, body, main {
 .profileImage {
   height: auto;
   width: 50%!important;
+  border-radius: 50%;
 }
 
 #messagesContainer, #messagesPannel {
