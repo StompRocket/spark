@@ -52,6 +52,10 @@
 
     </div>
     <div id="messagesPannel" class="mdl-cell mdl-cell--8-col">
+      <div style="margin-left: 33%;" v-if="welcome">
+        <h1>Welcome To Spark</h1>
+        <p>to get started press the New Team button in the upper left corner</p>
+      </div>
       <div v-for="message in messages" id="messagesContainer">
         <div class="message">
           <img class="messageImage" :src="getProfileImage(message.sender.image)" alt="">

@@ -1,6 +1,7 @@
 var database = firebase.database()
 var global = {
   chat: function () {
+    app.welcome = false
     var user = firebase.auth().currentUser
     var name, email, photoUrl, uid, emailVerified
 
@@ -26,6 +27,9 @@ var global = {
     var chat = getJsonFromUrl().c
     var chatRef = firebase.database().ref('chats/' + chat)
     chatRef.on('value', function (snapshot) {
+      if (!snapshot.val()) {
+        window.location.href = '/'
+      }
       app.messages = snapshot.val().mesages
 
       // console.log(snapshot.val().mesages)
@@ -51,7 +55,8 @@ var app = new Vue({
     chatTitle: '',
     chats: [],
     loading: true,
-    message: ''
+    message: '',
+    welcome: true
   },
   mounted: function () {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -84,6 +89,8 @@ var app = new Vue({
         if (getJsonFromUrl().c) {
           // console.log(true)
           global.chat()
+          app.welcome = false
+          console.log(app.welcome)
         } else {
           document.title = 'Spark'
         }
