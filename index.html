@@ -46,8 +46,8 @@
     <dialog id="shareDialog" style="width: 30%;" class="mdl-dialog">
       <h4 class="mdl-dialog__title">Share This Team</h4>
       <div class="mdl-dialog__content">
-        <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a>{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then have them paste it into
-          the dialog.</p>
+        <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a class="bold">{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then have them
+          paste it into the dialog.</p>
 
       </div>
       <div class="mdl-dialog__actions">
@@ -71,7 +71,7 @@
 </button>
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu">
           <li class="mdl-menu__item"> <img class="profileImage" :src="profileImage" alt=""></li>
-          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Settings</li>
+          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider" onclick="window.location.href='./settings.html'">Settings</li>
           <li @click="login" class="mdl-menu__item">{{loginText}}</li>
         </ul>
       </header>

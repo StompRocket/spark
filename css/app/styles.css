@@ -31,10 +31,14 @@ html, body, main {
 }
 
 #messageBlock {
-  height: 10%;
+  height: 13%;
   bottom: 0;
   display: block;
   width: 100%;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .messageImage {
