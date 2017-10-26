@@ -1,3 +1,5 @@
+const messaging = firebase.messaging()
+
 var database = firebase.database()
 var global = {
   chat: function() {
@@ -77,6 +79,7 @@ var app = new Vue({
           // this value to authenticate with your backend server, if
           // you have one. Use User.getToken() instead.
         }
+        console.log(uid)
         app.profileImage = photoUrl
 
         function getJsonFromUrl() {
@@ -91,13 +94,34 @@ var app = new Vue({
 
         if (getJsonFromUrl().c) {
           // console.log(true)
+          var chat = getJsonFromUrl().c
           global.chat()
           app.welcome = false
           console.log(app.welcome)
+          messaging.requestPermission()
+            .then(function() {
+              console.log('Notification permission granted.')
+              return messaging.getToken()
+            })
+            .then(function(token) {
+              console.log(token)
+              firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
+                token: token,
+                uid: uid,
+                name: name
+              })
+            })
+            .catch(function(err) {
+              console.log('An error occurred while retrieving token. ', err)
+              console.log('Error retrieving Instance ID token. ', err)
+            })
         } else {
           document.title = 'Spark'
           app.loading = false
         }
+        messaging.onMessage(function(payload) {
+          console.log('message', payload)
+        })
         var chatsRef = firebase.database().ref('users/' + uid)
         chatsRef.on('child_added', function(data) {
           app.chats.push({
@@ -230,7 +254,8 @@ var app = new Vue({
           text: message,
           sender: {
             name: name,
-            image: photoUrl
+            image: photoUrl,
+            uid: uid
           }
         }).then(function() {
           app.message = ''
