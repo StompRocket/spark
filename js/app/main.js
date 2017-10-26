@@ -1,6 +1,6 @@
 var database = firebase.database()
 var global = {
-  chat: function () {
+  chat: function() {
     app.welcome = false
     var user = firebase.auth().currentUser
     var name, email, photoUrl, uid, emailVerified
@@ -15,10 +15,10 @@ var global = {
       // you have one. Use User.getToken() instead.
     }
 
-    function getJsonFromUrl () {
+    function getJsonFromUrl() {
       var query = location.search.substr(1)
       var result = {}
-      query.split('&').forEach(function (part) {
+      query.split('&').forEach(function(part) {
         var item = part.split('=')
         result[item[0]] = decodeURIComponent(item[1])
       })
@@ -26,7 +26,7 @@ var global = {
     }
     var chat = getJsonFromUrl().c
     var chatRef = firebase.database().ref('chats/' + chat)
-    chatRef.on('value', function (snapshot) {
+    chatRef.on('value', function(snapshot) {
       if (!snapshot.val()) {
         window.location.href = './'
       }
@@ -38,7 +38,7 @@ var global = {
         title: snapshot.val().title,
         id: chat
       })
-      setTimeout(function () {
+      setTimeout(function() {
         document.documentElement.scrollTop = document.body.scrollHeight
         document.body.scrollTop = document.body.scrollHeight
         //  console.log('scrolled')
@@ -61,8 +61,8 @@ var app = new Vue({
     teamCode: '',
     sharing: false
   },
-  mounted: function () {
-    firebase.auth().onAuthStateChanged(function (user) {
+  mounted: function() {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         app.loginText = 'Logout'
         var user = firebase.auth().currentUser
@@ -79,10 +79,10 @@ var app = new Vue({
         }
         app.profileImage = photoUrl
 
-        function getJsonFromUrl () {
+        function getJsonFromUrl() {
           var query = location.search.substr(1)
           var result = {}
-          query.split('&').forEach(function (part) {
+          query.split('&').forEach(function(part) {
             var item = part.split('=')
             result[item[0]] = decodeURIComponent(item[1])
           })
@@ -96,9 +96,10 @@ var app = new Vue({
           console.log(app.welcome)
         } else {
           document.title = 'Spark'
+          app.loading = false
         }
         var chatsRef = firebase.database().ref('users/' + uid)
-        chatsRef.on('child_added', function (data) {
+        chatsRef.on('child_added', function(data) {
           app.chats.push({
             title: data.val().title,
             id: data.val().id
@@ -114,12 +115,12 @@ var app = new Vue({
     })
   },
   methods: {
-    addTeamSubmit: function () {
+    addTeamSubmit: function() {
       var teamdialog = document.querySelector('#addTeamDialog')
       teamdialog.close()
       var code = app.teamCode
       // console.log(code)
-      firebase.database().ref('codeRef/' + code).once('value').then(function (snapshot) {
+      firebase.database().ref('codeRef/' + code).once('value').then(function(snapshot) {
         var chatID = snapshot.val().chatID
         // console.log(snapshot.val())
 
@@ -132,22 +133,22 @@ var app = new Vue({
       })
       app.teamCode = ''
     },
-    addTeam: function () {
+    addTeam: function() {
       var teamdialog = document.querySelector('#addTeamDialog')
       if (!teamdialog.showModal) {
         dialogPolyfill.registerDialog(teamdialog)
       }
       teamdialog.showModal()
-      teamdialog.querySelector('.close').addEventListener('click', function () {
+      teamdialog.querySelector('.close').addEventListener('click', function() {
         teamdialog.close()
       })
     },
-    chatURL: function () {
+    chatURL: function() {
       return window.location.href
     },
-    chatCode: function () {
+    chatCode: function() {
       if (this.sharing) {
-        function generateChatID () {
+        function generateChatID() {
           // I generate the UID from two parts here
           // to ensure the random number provide enough bits.
           var firstPart = (Math.random() * 46656) | 0
@@ -157,10 +158,10 @@ var app = new Vue({
           return firstPart + secondPart
         }
 
-        function getJsonFromUrl () {
+        function getJsonFromUrl() {
           var query = location.search.substr(1)
           var result = {}
-          query.split('&').forEach(function (part) {
+          query.split('&').forEach(function(part) {
             var item = part.split('=')
             result[item[0]] = decodeURIComponent(item[1])
           })
@@ -174,38 +175,38 @@ var app = new Vue({
         return code
       }
     },
-    openShareDialog: function () {
+    openShareDialog: function() {
       this.sharing = true
       var dialog = document.querySelector('#shareDialog')
       if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog)
       }
       dialog.showModal()
-      dialog.querySelector('.close').addEventListener('click', function () {
+      dialog.querySelector('.close').addEventListener('click', function() {
         dialog.close()
         this.sharing = false
       })
     },
-    openChat: function (chat) {
+    openChat: function(chat) {
       var stateObj = {
         foo: 'bar'
       }
       history.pushState(stateObj, 'Spark', '?c=' + chat)
       global.chat()
     },
-    getURL: function (chat) {
+    getURL: function(chat) {
       return '/?c=' + chat
     },
-    send: function () {
+    send: function() {
       // console.log(chat, app.message)
       var message = app.message
       if (message) {
         // console.log('sending')
 
-        function getJsonFromUrl () {
+        function getJsonFromUrl() {
           var query = location.search.substr(1)
           var result = {}
-          query.split('&').forEach(function (part) {
+          query.split('&').forEach(function(part) {
             var item = part.split('=')
             result[item[0]] = decodeURIComponent(item[1])
           })
@@ -231,13 +232,13 @@ var app = new Vue({
             name: name,
             image: photoUrl
           }
-        }).then(function () {
+        }).then(function() {
           app.message = ''
         })
       }
     },
 
-    disabled: function () {
+    disabled: function() {
       // console.log(app.message)
       if (this.message) {
         return false
@@ -245,7 +246,7 @@ var app = new Vue({
         return true
       }
     },
-    getProfileImage: function (image) {
+    getProfileImage: function(image) {
       var result = image
 
       if (image == 'spark') {
@@ -254,10 +255,10 @@ var app = new Vue({
 
       return result
     },
-    chat: function () {
+    chat: function() {
       global.chat()
     },
-    newTeamSubmit: function () {
+    newTeamSubmit: function() {
       var dialog = document.querySelector('dialog')
       var user = firebase.auth().currentUser
       var name, email, photoUrl, uid, emailVerified
@@ -285,7 +286,7 @@ var app = new Vue({
             }
           }
         }
-      }).then(function (snap) {
+      }).then(function(snap) {
         // console.log(key)
         var stateObj = {
           foo: 'bar'
@@ -301,31 +302,31 @@ var app = new Vue({
         foo: 'Chat'
       }
     },
-    newTeam: function () {
+    newTeam: function() {
       var dialog = document.querySelector('#newTeamDialog')
       if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog)
       }
       dialog.showModal()
-      dialog.querySelector('.close').addEventListener('click', function () {
+      dialog.querySelector('.close').addEventListener('click', function() {
         dialog.close()
       })
     },
-    login: function () {
+    login: function() {
       var loginToast = document.querySelector('#toast')
       var user = firebase.auth().currentUser
 
       if (user) {
-        firebase.auth().signOut().then(function () {
+        firebase.auth().signOut().then(function() {
           var data = {
             message: 'Signed Out'
           }
           loginToast.MaterialSnackbar.showSnackbar(data)
-        }).catch(function (error) {
+        }).catch(function(error) {
           // An error happened.
         })
       } else {
-        firebase.auth().signInWithPopup(provider).then(function (result) {
+        firebase.auth().signInWithPopup(provider).then(function(result) {
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken
           // The signed-in user info.
@@ -335,7 +336,7 @@ var app = new Vue({
           }
           loginToast.MaterialSnackbar.showSnackbar(data)
           // app.loginText = 'Logout'
-        }).catch(function (error) {
+        }).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code
           var errorMessage = error.message
@@ -349,7 +350,7 @@ var app = new Vue({
     }
   },
   filters: {
-    reverse: function (array) {
+    reverse: function(array) {
       return array.slice().reverse()
     }
   }

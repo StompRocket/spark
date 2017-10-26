@@ -16,6 +16,11 @@ html, body, main {
   display: block;
 }
 
+.chatName {
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .message {
   width: 80%;
   border-bottom-color: rgb(224, 224, 224);

@@ -77,7 +77,7 @@
       </header>
       <hr>
       <div v-if="loading" id="loading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-      <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)">{{chat.title}} {{chat.id}}</a>
+      <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class="title is-2 chatName">{{chat.title}} <hr></a>
     </div>
 
 
@@ -108,7 +108,7 @@
 
     </div>
 
-    <div class=" mdl-shadow--2dp" id="newMessageContanier">
+    <div class="mdl-shadow--2dp" id="newMessageContanier">
       <form style="float: right;" v-on:submit.prevent="send" id="newMessageForm" action="#">
         <div id="newMessageInputContainer" class="mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" autocomplete="false" v-model="message" type="text" id="newMessage">
