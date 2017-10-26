@@ -27,6 +27,15 @@ var global = {
       return result
     }
     var chat = getJsonFromUrl().c
+    messaging.getToken().then(function(token) {
+      console.log(token)
+      firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
+        token: token,
+        uid: uid,
+        name: name
+      })
+    })
+
     var chatRef = firebase.database().ref('chats/' + chat)
     chatRef.on('value', function(snapshot) {
       if (!snapshot.val()) {
