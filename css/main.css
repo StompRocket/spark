@@ -46,7 +46,7 @@ html, body, main {
 #chatContainer {
   height: 100%;
   margin: 0;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .sender-image {
