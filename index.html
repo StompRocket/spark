@@ -24,7 +24,7 @@
 
         <hr>
         <div id="chatContainer">
-          <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink">
+          <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
               <b>{{chat.title}}</b>
               <hr>
             </a>

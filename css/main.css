@@ -18,6 +18,12 @@ html, body, main {
   height: 1.5vw;
   margin: 3px;
   font-size: 1vw;
+  opacity: 1;
+}
+
+.chatLink:hover {
+  color: rgb(255, 99, 99)!important;
+  transition-duration: 0.2s;
 }
 
 .profile-image {
