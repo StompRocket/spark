@@ -1,0 +1,78 @@
+html, body, main {
+  height: 100%!important;
+  padding: 0;
+  overflow: hidden;
+}
+
+#chatNav {
+  padding: 0;
+}
+
+.fullHeight {
+  height: 100%!important;
+  margin: 0;
+}
+
+.chatLink {
+  width: 100%;
+  height: 1.5vw;
+  margin: 3px;
+  font-size: 1vw;
+}
+
+.profile-image {
+  width: 2vw;
+  height: auto;
+}
+
+.login-btn {
+  margin-bottom: 18px;
+}
+
+.minFullHeight {
+  min-height: 100%;
+}
+
+#messagesContainer {
+  overflow: scroll!important;
+  height: 90%;
+}
+
+.menu-btn {
+  float: right;
+  margin: 2px;
+}
+
+#chatContainer {
+  height: 100%;
+  margin: 0;
+  overflow: scroll;
+}
+
+.sender-image {
+  float: left;
+  height: auto;
+  width: 2vw;
+  margin-right: 5px;
+}
+
+.message-text {
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+
+.message-sender {
+  font-weight: 300;
+  color: #696969;
+  margin-top: 1px;
+}
+
+.message {
+  display: block;
+  width: 100%;
+}
+
+#newMessageContanier {
+  margin: 0;
+  height: 100%;
+}

@@ -3,6 +3,7 @@ const messaging = firebase.messaging()
 var database = firebase.database()
 var global = {
   chat: function() {
+    app.loading = true
     app.welcome = false
     var user = firebase.auth().currentUser
     var name, email, photoUrl, uid, emailVerified
@@ -42,7 +43,7 @@ var global = {
         window.location.href = './'
       }
       app.messages = snapshot.val().mesages
-
+      app.loading = false
       // console.log(snapshot.val().mesages)
       document.title = snapshot.val().title
       firebase.database().ref('users/' + uid + '/' + chat).set({
@@ -50,9 +51,8 @@ var global = {
         id: chat
       })
       setTimeout(function() {
-        document.documentElement.scrollTop = document.body.scrollHeight
-        document.body.scrollTop = document.body.scrollHeight
-        //  console.log('scrolled')
+        var elem = document.getElementById('messagesContainer')
+        elem.scrollTop = elem.scrollHeight
       }, 200)
     })
   }
@@ -130,6 +130,7 @@ var app = new Vue({
         }
         messaging.onMessage(function(payload) {
           console.log('message', payload)
+          Materialize.toast('<b>' + payload.notification.title + ' </b> <p> &nbsp; ' + payload.notification.body + '</p>', 4000)
         })
         var chatsRef = firebase.database().ref('users/' + uid)
         chatsRef.on('child_added', function(data) {
@@ -149,7 +150,6 @@ var app = new Vue({
   },
   methods: {
     addTeamSubmit: function() {
-      var teamdialog = document.querySelector('#addTeamDialog')
       teamdialog.close()
       var code = app.teamCode
       // console.log(code)
@@ -206,7 +206,21 @@ var app = new Vue({
           chatID: chat
         })
         return code
+        this.sharing = false
       }
+    },
+    openShareModal: function() {
+      this.sharing = true
+      $('#shareTeamModal').modal()
+      $('#shareTeamModal').modal('open')
+    },
+    openNewTeamModal: function() {
+      $('#newTeamModal').modal()
+      $('#newTeamModal').modal('open')
+    },
+    openAddTeamModal: function() {
+      $('#addTeamModal').modal()
+      $('#addTeamModal').modal('open')
     },
     openShareDialog: function() {
       this.sharing = true
@@ -293,7 +307,6 @@ var app = new Vue({
       global.chat()
     },
     newTeamSubmit: function() {
-      var dialog = document.querySelector('dialog')
       var user = firebase.auth().currentUser
       var name, email, photoUrl, uid, emailVerified
 
@@ -330,7 +343,7 @@ var app = new Vue({
         app.title = ''
       })
 
-      dialog.close()
+      $('newTeamModal').modal('close')
 
       var stateObj = {
         foo: 'Chat'
