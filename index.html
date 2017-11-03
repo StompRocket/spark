@@ -16,10 +16,12 @@
         <a @click="login" class="btn btn-flat waves-light login-btn">
             <b>{{loginText}}</b>
           </a>
+        <div style="width: 100%;" class="row">
+          <a class="waves-effect waves-light btn menu-btn col s3" @click="openShareModal">Share Team</a>
+          <a class="waves-effect waves-light btn menu-btn  col s3" @click="openAddTeamModal">Add Team</a>
+          <a class="waves-effect waves-light btn menu-btn  col s3" @click="openNewTeamModal">New Team</a>
+        </div>
 
-        <a class="waves-effect waves-light btn menu-btn" @click="openShareModal">Share Team</a>
-        <a class="waves-effect waves-light btn menu-btn" @click="openAddTeamModal">Add Team</a>
-        <a class="waves-effect waves-light btn menu-btn" @click="openNewTeamModal">New Team</a>
         <hr>
         <div id="chatContainer">
           <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink">
