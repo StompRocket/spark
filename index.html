@@ -13,6 +13,7 @@
             <div id="chatNav" class="blue fullHeight  col m4">
                 <div class="fullHeight card-panel medium">
 
+                    <!--
                     <div style="width: 100%;" class="row">
                         <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openShareModal">Share Team</a></div>
                         <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openAddTeamModal">Add Team</a></div>
@@ -20,9 +21,17 @@
 
 
 
+                    </div>-->
+                    <div style="width: 100%; display: block; margin: 2px;">
+                        <button class="btn btn-flat dropdown-button menuDropDownBtn" data-activates='teamDropDown'><i class="material-icons large">menu</i></button>
                     </div>
 
-                    <hr>
+                    <ul id='teamDropDown' class='dropdown-content'>
+                        <li @click="openNewTeamModal"><a href="#!" class="dropDownText">New Team</a></li>
+                        <li @click="openAddTeamModal"><a href="#!" class="dropDownText">Add Team</a></li>
+                        <li @click="openShareModal"><a href="#!" class="dropDownText">Share Team</a></li>
+                    </ul>
+
                     <div id="chatContainer">
                         <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
                           <b>{{chat.title}}</b>
