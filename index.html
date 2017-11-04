@@ -32,8 +32,18 @@
                     <div id="chatContainer">
                         <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-red chatLink grey-text text-darken-3">
 
-                            <div class="chatContent valign-wrapper ">
-                                <p>{{chat.title}}</p>
+                            <div class="chatContent row">
+                                <div class="col s12">
+                                    <p class="chatName">{{chat.title}}</p>
+
+                                    <p class="chatMembers">{{getMembers(chat)}}</p>
+
+                                </div>
+                                <!--
+                                <div class="col s2 valign-wrapper">
+                                    <p class="chatOptionsBtn"><i class="material-icons grey-text text-darken-3">more_vert</i></p>
+                                </div>
+-->
                             </div>
 
 

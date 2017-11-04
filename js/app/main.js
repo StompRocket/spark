@@ -144,11 +144,19 @@ var app = new Vue({
         })
         var chatsRef = firebase.database().ref('users/' + uid)
         chatsRef.on('child_added', function (data) {
-          app.chats.push({
-            title: data.val().title,
-            id: data.val().id
-          })
+          var title = data.val().title
+          var id = data.val().id
 
+          var membersRef = firebase.database().ref('chats/' + data.val().id + '/members/')
+          membersRef.on('value', function (snapshot) {
+            // console.log(snapshot.val())
+            app.chats.push({
+              title: title,
+              id: id,
+              members: snapshot.val()
+
+            })
+          })
           app.loading = false
         })
       } else {
@@ -158,7 +166,23 @@ var app = new Vue({
       }
     })
   },
+  computed: {
+
+  },
   methods: {
+    getMembers: function (chat) {
+    //  console.log(chat.members)
+      var result = ''
+
+      Object.keys(chat.members).forEach(function (key) {
+      //  console.log(chat.members[key].name)
+        result = result + chat.members[key].name + ', '
+      })
+      result = result.slice(0, -1).slice(0, -1)
+    //  console.log(result)
+      return result
+      // return '123456789012345678901234567890123456789012345678901234567890'
+    },
     addTeamSubmit: function () {
       window.jQuery('#newTeamModal').modal('close')
       var code = app.teamCode
