@@ -57,6 +57,10 @@ html, body, main {
   color: #ff6363;
 }
 
+a {
+  color: #ff6363;
+}
+
 /* label underline focus color */
 
 .input-field input[type=text]:focus {
