@@ -170,7 +170,7 @@ var app = new Vue({
   },
   methods: {
     addTeamSubmit: function () {
-      jQuery('#newTeamModal').modal('close')
+      window.jQuery('#newTeamModal').modal('close')
       var code = app.teamCode
       // console.log(code)
       firebase.database().ref('codeRef/' + code).once('value').then(function (snapshot) {
@@ -363,7 +363,7 @@ var app = new Vue({
         app.title = ''
       })
 
-      $('newTeamModal').modal('close')
+    window.jQuery('#newTeamModal').modal('close')
 
       var stateObj = {
         foo: 'Chat'
