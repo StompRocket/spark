@@ -107,11 +107,13 @@ a {
 
 .userName {
   margin-bottom: 1px;
+  font-weight: 500;
 }
 
 .userEmail {
   margin-top: 1px;
   font-size: 1vw;
+  font-weight: 300;
 }
 
 #userInfo {
