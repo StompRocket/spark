@@ -170,16 +170,43 @@ var app = new Vue({
 
   },
   methods: {
+    deleteChat: function (chat) {
+      console.log(chat.title)
+      if (window.confirm('Are you sure you want to delete ' + chat.title)) {
+        var user = firebase.auth().currentUser
+        var name, email, photoUrl, uid, emailVerified
+
+        if (user != null) {
+          name = user.displayName
+          email = user.email
+          photoUrl = user.photoURL
+          emailVerified = user.emailVerified
+          uid = user.uid // The user's ID, unique to the Firebase project. Do NOT use
+          // this value to authenticate with your backend server, if
+          // you have one. Use User.getToken() instead.
+        }
+        console.log('users/' + uid + '/' + chat.id)
+        firebase.database().ref('users/' + uid + '/' + chat.id).set(null)
+        window.location.href = '/'
+      }
+    },
+    test: function () {
+      window.alert('test')
+    },
     getMembers: function (chat) {
     //  console.log(chat.members)
       var result = ''
+      if (chat.members) {
+        Object.keys(chat.members).forEach(function (key) {
+  //  console.log(chat.members[key].name)
+          result = result + chat.members[key].name + ', '
+        })
+        result = result.slice(0, -1).slice(0, -1)
+//  console.log(result)
+      } else {
+        result = 'error'
+      }
 
-      Object.keys(chat.members).forEach(function (key) {
-      //  console.log(chat.members[key].name)
-        result = result + chat.members[key].name + ', '
-      })
-      result = result.slice(0, -1).slice(0, -1)
-    //  console.log(result)
       return result
       // return '123456789012345678901234567890123456789012345678901234567890'
     },
@@ -365,6 +392,12 @@ var app = new Vue({
               name: 'admin',
               image: 'spark'
             }
+          }
+        },
+        members: {
+          [uid]: {
+            name: name,
+            uid: uid
           }
         }
       }).then(function (snap) {
