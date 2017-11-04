@@ -49,6 +49,47 @@ html, body, main {
   margin: 2px;
 }
 
+.input-field label {
+  color: rgb(255, 99, 99);
+}
+
+.input-field input[type=text]:focus+label {
+  color: #ff6363;
+}
+
+/* label underline focus color */
+
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #ff6363;
+  box-shadow: 0 1px 0 0 #ff6363;
+}
+
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #ff6363;
+  box-shadow: 0 1px 0 0 #ff6363;
+}
+
+/* invalid color */
+
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid #ff6363;
+  box-shadow: 0 1px 0 0 #ff6363;
+}
+
+/* icon prefix focus color */
+
+.input-field .prefix.active {
+  color: #ff6363;
+}
+
+.btn {
+  background-color: rgb(255, 99, 99);
+}
+
+.btn:hover {
+  background-color: rgb(255, 138, 138);
+}
+
 #chatContainer {
   height: 100%;
   margin: 0;

@@ -1,122 +1,122 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <title>Spark</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.min.css" type="text/css" rel="stylesheet">
-  <link href="css/main.css" type="text/css" rel="stylesheet">
-</head>
+    <head>
+        <title>Spark</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/materialize.min.css" type="text/css" rel="stylesheet">
+        <link href="css/main.css" type="text/css" rel="stylesheet">
+    </head>
 
-<body class="row">
-  <main id="app">
-    <div id="chatNav" class="blue fullHeight  col m4">
-      <div class="fullHeight card-panel medium">
-        <img class="profile-image circle" :src="profileImage">
-        <a @click="login" class="btn btn-flat waves-light login-btn">
+    <body class="row">
+        <main id="app">
+            <div id="chatNav" class="blue fullHeight  col m4">
+                <div class="fullHeight card-panel medium">
+                    <img class="profile-image circle" :src="profileImage">
+                    <a @click="login" class="btn btn-flat waves-light white-text login-btn">
             <b>{{loginText}}</b>
           </a>
-        <div style="width: 100%;" class="row">
-          <a class="waves-effect waves-light btn menu-btn col s3" @click="openShareModal">Share Team</a>
-          <a class="waves-effect waves-light btn menu-btn  col s3" @click="openAddTeamModal">Add Team</a>
-          <a class="waves-effect waves-light btn menu-btn  col s3" @click="openNewTeamModal">New Team</a>
-        </div>
+                    <div style="width: 100%;" class="row">
+                        <a class="waves-effect waves-light btn menu-btn col s3" @click="openShareModal">Share Team</a>
+                        <a class="waves-effect waves-light btn menu-btn  col s3" @click="openAddTeamModal">Add Team</a>
+                        <a class="waves-effect waves-light btn menu-btn  col s3" @click="openNewTeamModal">New Team</a>
+                    </div>
 
-        <hr>
-        <div id="chatContainer">
-          <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
+                    <hr>
+                    <div id="chatContainer">
+                        <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
               <b>{{chat.title}}</b>
               <hr>
             </a>
-        </div>
+                    </div>
 
-      </div>
-    </div>
-    <div class="col m8 fullHeight ">
-      <div id="messagesContainer">
-        <div v-if="loading" class="progress">
-          <div class="indeterminate"></div>
-        </div>
-        <div v-for="message in messages" class="message">
-          <img class="sender-image circle" :src="getProfileImage(message.sender.image)">
-          <p class="message-text">{{message.text}}</p>
-          <p class="message-sender">{{message.sender.name}}</p>
-          <br>
-        </div>
-      </div>
+                </div>
+            </div>
+            <div class="col m8 fullHeight ">
+                <div id="messagesContainer">
+                    <div v-if="loading" class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <div v-for="message in messages" class="message">
+                        <img class="sender-image circle" :src="getProfileImage(message.sender.image)">
+                        <p class="message-text">{{message.text}}</p>
+                        <p class="message-sender">{{message.sender.name}}</p>
+                        <br>
+                    </div>
+                </div>
 
-      <div id="newMessageContanier" class="card-panel fullHeight">
+                <div id="newMessageContanier" class="card-panel fullHeight">
 
-        <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
-          <div id="newMessageInputContainer" class="input-field col m11">
-            <input class="" autocomplete="false" v-model="message" type="text" id="newMessage">
-            <label class="" for="newMessage">Message...</label>
-          </div>
-          <!-- Accent-colored raised button with ripple -->
-          <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col m1 btn-large btn">
+                    <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
+                        <div id="newMessageInputContainer" class="input-field col m11">
+                            <input class="" autocomplete="false" v-model="message" type="text" id="newMessage">
+                            <label class="labelMessage" for="newMessage">Message...</label>
+                        </div>
+                        <!-- Accent-colored raised button with ripple -->
+                        <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col m1 btn-large btn">
               Send
               </button>
-        </form>
-      </div>
-    </div>
-    <div id="shareTeamModal" class="modal">
-      <div class="modal-content">
-        <h4>Share This Team</h4>
-        <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a class="bold">{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then have them
-          paste it into the dialog.</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">close</a>
-      </div>
-    </div>
-    <div id="newTeamModal" class="modal">
-      <div class="modal-content">
-        <h4>Create A New Team</h4>
-        <form @submit.prevent="newTeamSubmit" action="#">
-          <div style="width: 100%;" class="input-field">
-            <input v-model="title" style="width: 100%;" required type="text" placeholder="" id="newTeamMembers">
-            <label for="newTeamMembers">New Team Name</label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
-      </div>
-    </div>
-    <div id="addTeamModal" class="modal">
-      <div class="modal-content">
-        <h4>Add A Team</h4>
-        <form @submit.prevent="addTeamSubmit" action="#">
-          <div style="width: 100%;" class="input-field">
-            <input v-model="teamCode" style="width: 100%;" required type="text" placeholder="" id="teamCode">
-            <label for="teamCode">Team Code</label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
-      </div>
-    </div>
-  </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="js/materialize.min.js"></script>
-  <script src="https://unpkg.com/vue" charset="utf-8"></script>
-  <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyC33Gp6-aRbajLAp22adwWJdIvXX4CVHcM",
-      authDomain: "spark-524b4.firebaseapp.com",
-      databaseURL: "https://spark-524b4.firebaseio.com",
-      projectId: "spark-524b4",
-      storageBucket: "",
-      messagingSenderId: "1043381207552"
-    };
-    firebase.initializeApp(config);
-    var provider = new firebase.auth.GoogleAuthProvider();
-  </script>
-  <script src="./js/app/main.js" charset="utf-8"></script>
-</body>
+                    </form>
+                </div>
+            </div>
+            <div id="shareTeamModal" class="modal">
+                <div class="modal-content">
+                    <h4>Share This Team</h4>
+                    <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a class="bold">{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then
+                        have them paste it into the dialog.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">close</a>
+                </div>
+            </div>
+            <div id="newTeamModal" class="modal">
+                <div class="modal-content">
+                    <h4>Create A New Team</h4>
+                    <form @submit.prevent="newTeamSubmit" action="#">
+                        <div style="width: 100%;" class="input-field">
+                            <input v-model="title" style="width: 100%;" required type="text" placeholder="" id="newTeamMembers">
+                            <label for="newTeamMembers">New Team Name</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
+                </div>
+            </div>
+            <div id="addTeamModal" class="modal">
+                <div class="modal-content">
+                    <h4>Add A Team</h4>
+                    <form @submit.prevent="addTeamSubmit" action="#">
+                        <div style="width: 100%;" class="input-field">
+                            <input v-model="teamCode" style="width: 100%;" required type="text" placeholder="" id="teamCode">
+                            <label for="teamCode">Team Code</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
+                </div>
+            </div>
+        </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="js/materialize.min.js"></script>
+        <script src="https://unpkg.com/vue" charset="utf-8"></script>
+        <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyC33Gp6-aRbajLAp22adwWJdIvXX4CVHcM",
+                authDomain: "spark-524b4.firebaseapp.com",
+                databaseURL: "https://spark-524b4.firebaseio.com",
+                projectId: "spark-524b4",
+                storageBucket: "",
+                messagingSenderId: "1043381207552"
+            };
+            firebase.initializeApp(config);
+            var provider = new firebase.auth.GoogleAuthProvider();
+        </script>
+        <script src="./js/app/main.js" charset="utf-8"></script>
+    </body>
 
 </html>
