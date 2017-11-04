@@ -79,17 +79,8 @@ var app = new Vue({
   },
   mounted: function () {
     firebase.auth().onAuthStateChanged(function (user) {
-      $('.dropdown-button').dropdown({
-        inDuration: 300,
-        outDuration: 225,
-        constrainWidth: false, // Does not change width of dropdown to that of the activator
-        hover: true, // Activate on hover
-        gutter: 0, // Spacing from edge
-        belowOrigin: false, // Displays dropdown below the button
-        alignment: 'left', // Displays dropdown with edge aligned to the left of button
-        stopPropagation: false // Stops event propagation
-      }
-)
+      $('.tooltipped').tooltip({delay: 50});
+
 
       if (user) {
         app.loginText = 'Logout'
@@ -150,7 +141,7 @@ var app = new Vue({
         }
         messaging.onMessage(function (payload) {
           console.log('message', payload)
-          Materialize.toast('<b>' + payload.notification.title + ' </b> <p> &nbsp; ' + payload.notification.body + '</p>', 4000)
+          // Materialize.toast('<b>' + payload.notification.title + ' </b> <p> &nbsp; ' + payload.notification.body + '</p>', 4000)
         })
         var chatsRef = firebase.database().ref('users/' + uid)
         chatsRef.on('child_added', function (data) {
@@ -363,7 +354,7 @@ var app = new Vue({
         app.title = ''
       })
 
-    window.jQuery('#newTeamModal').modal('close')
+      window.jQuery('#newTeamModal').modal('close')
 
       var stateObj = {
         foo: 'Chat'
