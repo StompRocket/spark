@@ -17,9 +17,12 @@
             <b>{{loginText}}</b>
           </a>
                     <div style="width: 100%;" class="row">
-                        <a class="waves-effect waves-light btn menu-btn col s3" @click="openShareModal">Share Team</a>
-                        <a class="waves-effect waves-light btn menu-btn  col s3" @click="openAddTeamModal">Add Team</a>
-                        <a class="waves-effect waves-light btn menu-btn  col s3" @click="openNewTeamModal">New Team</a>
+                        <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openShareModal">Share Team</a></div>
+                        <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openAddTeamModal">Add Team</a></div>
+                        <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openNewTeamModal">New Team</a></div>
+
+
+
                     </div>
 
                     <hr>

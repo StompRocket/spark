@@ -46,7 +46,6 @@ html, body, main {
 
 .menu-btn {
   float: right;
-  margin: 2px;
 }
 
 .input-field label {
@@ -55,6 +54,11 @@ html, body, main {
 
 .input-field input[type=text]:focus+label {
   color: #ff6363;
+}
+
+.menuBtnContainer {
+  padding-left: 0.5px;
+  padding-right: 0.5px;
 }
 
 a {
