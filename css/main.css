@@ -18,6 +18,10 @@ html, body, main {
   display: block;
 }
 
+.menuBtnText {
+  font-size: 2rem!important;
+}
+
 .dropdown-content {
   color: #ff6363;
 }
@@ -118,7 +122,7 @@ a {
 }
 
 #chatContainer {
-  height: 85%;
+  height: 83%;
   margin: 0;
   overflow: auto;
   margin-top: 5%;
@@ -136,7 +140,7 @@ a {
 }
 
 #userInfo {
-  height: 30%;
+  height: 17%;
 }
 
 .sender-image {
