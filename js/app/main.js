@@ -198,7 +198,7 @@ var app = new Vue({
         }
         console.log('users/' + uid + '/' + chat.id)
         firebase.database().ref('users/' + uid + '/' + chat.id).set(null)
-        window.location.href = '/'
+        window.location.href = './'
       }
     },
     test: function () {
