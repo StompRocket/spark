@@ -2,6 +2,7 @@ const messaging = firebase.messaging()
 
 var database = firebase.database()
 var global = {
+  messaging: false,
   chat: function () {
     app.loading = true
     app.welcome = false
@@ -28,14 +29,23 @@ var global = {
       return result
     }
     var chat = getJsonFromUrl().c
-    messaging.getToken().then(function (token) {
-      console.log(token)
+
+    if (window.global.messaging) {
+      messaging.getToken().then(function (token) {
+        console.log(token, '   adding membership to   ', chat)
+        firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
+          token: token,
+          uid: uid,
+          name: name
+        })
+      })
+    } else {
       firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
-        token: token,
+        token: null,
         uid: uid,
         name: name
       })
-    })
+    }
 
     var chatRef = firebase.database().ref('chats/' + chat)
     chatRef.on('value', function (snapshot) {
@@ -120,6 +130,7 @@ var app = new Vue({
           messaging.requestPermission()
             .then(function () {
               console.log('Notification permission granted.')
+              window.global.messaging = true
               return messaging.getToken()
             })
             .then(function (token) {
