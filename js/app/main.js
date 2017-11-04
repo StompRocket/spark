@@ -79,8 +79,7 @@ var app = new Vue({
   },
   mounted: function () {
     firebase.auth().onAuthStateChanged(function (user) {
-      $('.tooltipped').tooltip({delay: 50});
-
+      $('.tooltipped').tooltip({delay: 50})
 
       if (user) {
         app.loginText = 'Logout'

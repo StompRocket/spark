@@ -10,7 +10,7 @@
 
     <body class="row">
         <main id="app">
-            <div id="chatNav" class="blue fullHeight  col m4">
+            <div id="chatNav" class="blue fullHeight  col s4">
                 <div class="fullHeight card-panel medium">
 
                     <!--
@@ -27,32 +27,36 @@
                         <button class="btn btn-flat menuDropDownBtn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share This Chat" type="button" name="button" @click="openShareModal"><i class="material-icons menuBtnText">share</i></button>
 
                     </div>
-
+                    <br>
 
                     <div id="chatContainer">
-                        <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
-                          <b>{{chat.title}}</b>
-                          <hr>
+                        <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-red chatLink grey-text text-darken-3">
+
+                            <div class="chatContent valign-wrapper ">
+                                <p>{{chat.title}}</p>
+                            </div>
+
+
                         </a>
                     </div>
 
                     <div id="userInfo" class="row card-panel">
-                        <div class="col m9 row" v-if="user.loggedIn">
-                            <img class="profile-image circle col m3" :src="profileImage">
-                            <div class="col m9">
-                                <p class="userName">{{user.name}}</p>
-                                <p class="userEmail">{{user.email}}</p>
+                        <div class="col s12 m9 row" id="userInfoRow" v-if="user.loggedIn">
+                            <img class="profile-image circle col hide-on-small-only m3" :src="profileImage">
+                            <div class="col s12 m9">
+                                <p class=" userName">{{user.name}}</p>
+                                <p class=" userEmail">{{user.email}}</p>
                             </div>
 
                         </div>
 
 
-                        <a @click="login" class=" col m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
+                        <a @click="login" class=" col s12 m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
                     </div>
 
                 </div>
             </div>
-            <div class="col m8 fullHeight ">
+            <div class="col s8 fullHeight ">
                 <div id="messagesContainer">
                     <div v-if="loading" class="progress">
                         <div class="indeterminate"></div>
@@ -68,12 +72,12 @@
                 <div id="newMessageContanier" class="card-panel fullHeight">
 
                     <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
-                        <div id="newMessageInputContainer" class="input-field col m11">
+                        <div id="newMessageInputContainer" class="input-field col s8 m11">
                             <input class="" autocomplete="off" v-model="message" type="text" id="newMessage">
                             <label class="labelMessage" for="newMessage">Message...</label>
                         </div>
                         <!-- Accent-colored raised button with ripple -->
-                        <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col m1 btn-large btn">
+                        <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col s4 m1 btn-large btn">
               Send
               </button>
                     </form>
