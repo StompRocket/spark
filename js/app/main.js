@@ -88,6 +88,7 @@ var app = new Vue({
     }
   },
   mounted: function () {
+    $('.button-collapse').sideNav()
     firebase.auth().onAuthStateChanged(function (user) {
       $('.tooltipped').tooltip({delay: 50})
 

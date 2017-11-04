@@ -153,6 +153,7 @@ a {
   margin: 0;
   overflow: auto;
   margin-top: 5%;
+  display: block;
 }
 
 .userName {
