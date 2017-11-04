@@ -80,17 +80,17 @@ var app = new Vue({
   mounted: function () {
     firebase.auth().onAuthStateChanged(function (user) {
       $('.dropdown-button').dropdown({
-    inDuration: 300,
-    outDuration: 225,
-    constrainWidth: false, // Does not change width of dropdown to that of the activator
-    hover: true, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: false, // Displays dropdown below the button
-    alignment: 'left', // Displays dropdown with edge aligned to the left of button
-    stopPropagation: false // Stops event propagation
-  }
-);
-    
+        inDuration: 300,
+        outDuration: 225,
+        constrainWidth: false, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: false, // Displays dropdown below the button
+        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+        stopPropagation: false // Stops event propagation
+      }
+)
+
       if (user) {
         app.loginText = 'Logout'
         var user = firebase.auth().currentUser
@@ -170,7 +170,7 @@ var app = new Vue({
   },
   methods: {
     addTeamSubmit: function () {
-      $('#addTeamModal').modal('close')
+      jQuery('#newTeamModal').modal('close')
       var code = app.teamCode
       // console.log(code)
       firebase.database().ref('codeRef/' + code).once('value').then(function (snapshot) {

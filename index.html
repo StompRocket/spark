@@ -23,14 +23,11 @@
 
                     </div>-->
                     <div style="width: 100%; display: block; margin: 2px;">
-                        <button class="btn btn-flat dropdown-button menuDropDownBtn" data-activates='teamDropDown'><i class="material-icons large menuBtnText">menu</i></button>
+                        <button class="btn btn-flat menuDropDownBtn" type="button" name="button" @click="openNewTeamModal"><i class="material-icons menuBtnText plus">add</i></button>
+                        <button class="btn btn-flat menuDropDownBtn" type="button" name="button" @click="openShareModal"><i class="material-icons menuBtnText">share</i></button>
+
                     </div>
 
-                    <ul id='teamDropDown' class='dropdown-content'>
-                        <li @click="openNewTeamModal"><a href="#!" class="dropDownText">New Team</a></li>
-                        <li @click="openAddTeamModal"><a href="#!" class="dropDownText">Add Team</a></li>
-                        <li @click="openShareModal"><a href="#!" class="dropDownText">Share Team</a></li>
-                    </ul>
 
                     <div id="chatContainer">
                         <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
@@ -94,32 +91,30 @@
             </div>
             <div id="newTeamModal" class="modal">
                 <div class="modal-content">
-                    <h4>Create A New Team</h4>
-                    <form @submit.prevent="newTeamSubmit" action="#">
-                        <div style="width: 100%;" class="input-field">
-                            <input v-model="title" style="width: 100%;" required type="text" placeholder="" id="newTeamMembers">
-                            <label for="newTeamMembers">New Team Name</label>
-                        </div>
-                    </form>
+                    <h4>Create A New Team OR... Add A Team</h4>
+                    <br>
+                    <div class="row">
+                        <form class="col m8" @submit.prevent="newTeamSubmit" action="#">
+                            <div style="width: 100%;" class="input-field">
+                                <input v-model="title" style="width: 100%;" required type="text" placeholder="New Team Name" id="newTeamMembers">
+                                <label for="newTeamMembers">Create A Team</label>
+                            </div>
+                        </form>
+
+                        <form class="col m4" @submit.prevent="addTeamSubmit" action="#">
+                            <div style="width: 100%;" class="input-field">
+                                <input v-model="teamCode" style="width: 100%;" required type="text" placeholder="Team Code" id="teamCode">
+                                <label for="teamCode">Add A Team</label>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
                 </div>
             </div>
-            <div id="addTeamModal" class="modal">
-                <div class="modal-content">
-                    <h4>Add A Team</h4>
-                    <form @submit.prevent="addTeamSubmit" action="#">
-                        <div style="width: 100%;" class="input-field">
-                            <input v-model="teamCode" style="width: 100%;" required type="text" placeholder="" id="teamCode">
-                            <label for="teamCode">Team Code</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
-                </div>
-            </div>
+
         </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/materialize.min.js"></script>
