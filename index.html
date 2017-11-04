@@ -12,10 +12,7 @@
         <main id="app">
             <div id="chatNav" class="blue fullHeight  col m4">
                 <div class="fullHeight card-panel medium">
-                    <img class="profile-image circle" :src="profileImage">
-                    <a @click="login" class="btn btn-flat waves-light white-text login-btn">
-            <b>{{loginText}}</b>
-          </a>
+
                     <div style="width: 100%;" class="row">
                         <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openShareModal">Share Team</a></div>
                         <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openAddTeamModal">Add Team</a></div>
@@ -28,9 +25,23 @@
                     <hr>
                     <div id="chatContainer">
                         <a v-for="chat in chats" @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class=" waves-effect waves-light chatLink grey-text text-darken-3">
-              <b>{{chat.title}}</b>
-              <hr>
-            </a>
+                          <b>{{chat.title}}</b>
+                          <hr>
+                        </a>
+                    </div>
+
+                    <div id="userInfo" class="row card-panel">
+                        <div class="col m9 row" v-if="user.loggedIn">
+                            <img class="profile-image circle col m3" :src="profileImage">
+                            <div class="col m9">
+                                <p class="userName">{{user.name}}</p>
+                                <p class="userEmail">{{user.email}}</p>
+                            </div>
+
+                        </div>
+
+
+                        <a @click="login" class=" col m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
                     </div>
 
                 </div>

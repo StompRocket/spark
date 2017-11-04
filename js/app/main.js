@@ -70,7 +70,12 @@ var app = new Vue({
     message: '',
     welcome: true,
     teamCode: '',
-    sharing: false
+    sharing: false,
+    user: {
+      loggedIn: false,
+      name: '',
+      email: ''
+    }
   },
   mounted: function () {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -88,6 +93,9 @@ var app = new Vue({
           // this value to authenticate with your backend server, if
           // you have one. Use User.getToken() instead.
         }
+        app.user.loggedIn = true
+        app.user.name = name
+        app.user.email = email
         console.log(uid)
         app.profileImage = photoUrl
 

@@ -27,12 +27,13 @@ html, body, main {
 }
 
 .profile-image {
-  width: 2vw;
+  margin-top: 8%;
+  width: 100%;
   height: auto;
 }
 
 .login-btn {
-  margin-bottom: 18px;
+  margin-top: 5%;
 }
 
 .minFullHeight {
@@ -99,9 +100,22 @@ a {
 }
 
 #chatContainer {
-  height: 100%;
+  height: 76%;
   margin: 0;
   overflow: auto;
+}
+
+.userName {
+  margin-bottom: 1px;
+}
+
+.userEmail {
+  margin-top: 1px;
+  font-size: 1vw;
+}
+
+#userInfo {
+  height: 30%;
 }
 
 .sender-image {
