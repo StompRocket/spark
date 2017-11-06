@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Spark</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="css/materialize.min.css" type="text/css" rel="stylesheet">
-        <link href="css/main.css" type="text/css" rel="stylesheet">
-    </head>
+<head>
+  <title>Spark</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.min.css" type="text/css" rel="stylesheet">
+  <link href="css/main.css" type="text/css" rel="stylesheet">
+</head>
 
-    <body class="row">
-        <main id="app">
-            <div id="chatNav" class="blue fullHeight  col s4">
-                <div class="fullHeight card-panel medium">
+<body class="row">
+  <main id="app">
+    <div id="chatNav" class="blue fullHeight  col s4">
+      <div class="fullHeight card-panel medium">
 
-                    <!--
+        <!--
                     <div style="width: 100%;" class="row">
                         <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openShareModal">Share Team</a></div>
                         <div class="col m4 menuBtnContainer"><a class="waves-effect waves-light btn menu-btn" @click="openAddTeamModal">Add Team</a></div>
@@ -22,169 +22,179 @@
 
 
                     </div>-->
-                    <div style="width: 100%; display: block; margin: 2px;">
-                        <button class="btn btn-flat menuDropDownBtn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add Or Create A New Chat" type="button" name="button" @click="openNewTeamModal"><i class="material-icons menuBtnText plus">add</i></button>
-                        <button class="btn btn-flat menuDropDownBtn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share This Chat" type="button" name="button" @click="openShareModal"><i class="material-icons menuBtnText">share</i></button>
+        <div style="width: 100%; display: block; margin: 2px;">
+          <button class="btn btn-flat menuDropDownBtnInvite tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share This Chat" type="button" name="button" @click="openShareModal">INVITE</button>
+          <button class="btn btn-flat menuDropDownBtn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add Or Create A New Chat" type="button" name="button" @click="openNewTeamModal"><i class="material-icons menuBtnText plus">add</i></button>
+        </div>
+        <br>
 
-                    </div>
-                    <br>
+        <div id="chatContainer">
+          <a v-for="chat in chats" class=" waves-effect waves-red chatLink grey-text text-darken-3">
 
-                    <div id="chatContainer">
-                        <a v-for="chat in chats" class=" waves-effect waves-red chatLink grey-text text-darken-3">
+            <div class="chatContent row">
+              <div @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class="col s11">
+                <p class="chatName">{{chat.title}}</p>
+                <p class="chatMembers">{{getMembers(chat)}}</p>
 
-                            <div class="chatContent row">
-                                <div @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class="col s11">
-                                    <p class="chatName">{{chat.title}}</p>
-                                    <p class="chatMembers">{{getMembers(chat)}}</p>
+              </div>
 
-                                </div>
-
-                                <div @click="deleteChat(chat)" class="col s1 valign-wrapper">
-                                    <p class="chatOptionsBtn"><i class="material-icons grey-text text-darken-3">delete_forever</i></p>
-                                </div>
-                            </div>
-
-
-                        </a>
-                    </div>
-
-                    <div id="userInfo" @click="openSettings" class=" waves-effect waves-red row card-panel">
-                        <div class="col s12 m9 row" id="userInfoRow" v-if="user.loggedIn">
-                            <img class="profile-image circle col hide-on-small-only m3" :src="profileImage">
-                            <div class="col s12 m9">
-                                <p class="userName">{{user.name}}</p>
-                                <p class="userEmail">{{user.email}}</p>
-                            </div>
-
-                        </div>
-
-
-                        <a @click="login" class=" col s12 m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
-                    </div>
-
-                </div>
+              <div @click="deleteChat(chat)" class="col s1 valign-wrapper">
+                <p class="chatOptionsBtn"><i class="material-icons grey-text text-darken-3">delete_forever</i></p>
+              </div>
             </div>
-            <div class="col s8 fullHeight ">
-                <div v-if="loading" class="progress">
-                    <div class="indeterminate"></div>
-                </div>
-                <div v-if="chatting" id="messagesContainer">
-
-                    <div v-for="message in messages" class="message">
-                        <img class="sender-image circle" :src="getProfileImage(message.sender.image)">
-                        <p class="message-text">{{message.text}}</p>
-                        <p class="message-sender">{{message.sender.name}}</p>
-                        <br>
-                    </div>
-                </div>
-                <div id="settings" v-if="settings">
-                    <div class="row">
-                        <h1 class="col s6">Settings</h1>
-                        <div class="col s6 card horizontal">
-                            <div class="card-image">
-                                <img class="circle" :src="profileImage">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p class="userName">{{user.name}}</p>
-                                    <p class="userEmail">{{user.email}}</p>
-                                </div>
-                                <div class="card-action">
-                                    <a @click="login">Logout</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="divider"></div>
-                    <br>
 
 
-                </div>
+          </a>
+        </div>
 
-                <div v-if="chatting" id="newMessageContanier" class="card-panel fullHeight">
+        <div id="userInfo" @click="openSettings" style="width:100%;" class=" waves-effect waves-red row card-panel">
+          <div class="col s12 m9 row" id="userInfoRow" v-if="user.loggedIn">
+            <img class="profile-image circle col hide-on-small-only m3" :src="profileImage">
+            <div class="col s12 m9">
+              <p class="userName">{{user.name}}</p>
+              <p class="userEmail">{{user.email}}</p>
+            </div>
 
-                    <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
-                        <div id="newMessageInputContainer" class="input-field col s8 m11">
-                            <input class="" autocomplete="off" v-model="message" type="text" id="newMessage">
-                            <label class="labelMessage" for="newMessage">Message...</label>
-                        </div>
-                        <!-- Accent-colored raised button with ripple -->
-                        <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col s4 m1 btn-large btn">
+          </div>
+
+
+          <a @click="login" class=" col s12 m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
+        </div>
+
+      </div>
+    </div>
+    <div class="col s8 fullHeight ">
+      <div v-if="loading" class="progress">
+        <div class="indeterminate"></div>
+      </div>
+      <div v-if="chatting" id="messagesContainer">
+
+        <div v-for="message in messages" class="message">
+          <img class="sender-image circle" :src="getProfileImage(message.sender.image)">
+          <p class="message-text">{{message.text}}</p>
+          <p class="message-sender">{{message.sender.name}}</p>
+          <br>
+        </div>
+      </div>
+      <div id="welcome" class="fullHeight" v-if="welcome">
+        <h1 id="welcomeTitle">Welcome</h1>
+        <h2 id="welcomeTo">To</h2>
+        <h1 id="welcomeSpark">Spark</h1>
+        <div id="welcomeText" class="container">
+          <p id="" class="flow-text">
+            Spark is an online messaging platform focused on productivity. To get started press the plus button in the upper righthand corner and create a team.
+          </p>
+        </div>
+      </div>
+      <div id="settings" v-if="settings">
+        <div class="row">
+          <h1 class="col s6">Settings</h1>
+          <div class="col s6 card horizontal">
+            <div class="card-image">
+              <img class="circle" :src="profileImage">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <p class="userName">{{user.name}}</p>
+                <p class="userEmail">{{user.email}}</p>
+              </div>
+              <div class="card-action">
+                <a @click="login">Logout</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <br>
+
+
+      </div>
+
+      <div v-if="chatting" id="newMessageContanier" class="card-panel fullHeight">
+
+        <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
+          <div id="newMessageInputContainer" class="input-field col s8 m11">
+            <input class="" autocomplete="off" v-model="message" type="text" id="newMessage">
+            <label class="labelMessage" for="newMessage">Message...</label>
+          </div>
+          <!-- Accent-colored raised button with ripple -->
+          <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col s4 m1 btn-large btn">
               Send
               </button>
-                    </form>
-                </div>
+        </form>
+      </div>
+    </div>
+    <div id="shareTeamModal" class="modal">
+      <div class="modal-content">
+        <h4>Share This Team</h4>
+        <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a class="bold">{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then have them
+          paste it into the dialog.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">close</a>
+      </div>
+    </div>
+    <div id="newTeamModal" class="modal">
+      <div class="modal-content">
+        <h4>Create A New Team OR... Add A Team</h4>
+        <br>
+        <div class="row">
+          <form class="col m8" @submit.prevent="newTeamSubmit" action="#">
+            <div style="width: 100%;" class="input-field">
+              <input v-model="title" style="width: 100%;" required type="text" placeholder="New Team Name" id="newTeamMembers">
+              <label for="newTeamMembers">Create A Team</label>
             </div>
-            <div id="shareTeamModal" class="modal">
-                <div class="modal-content">
-                    <h4>Share This Team</h4>
-                    <p>To share this team all you have to do is give them this link: <br><a>{{chatURL()}}</a><br>Or you can give them this code: <a class="bold">{{chatCode()}}</a> and tell them to click the <b>Add Team</b> button in the top left bar, then
-                        have them paste it into the dialog.</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">close</a>
-                </div>
-            </div>
-            <div id="newTeamModal" class="modal">
-                <div class="modal-content">
-                    <h4>Create A New Team OR... Add A Team</h4>
-                    <br>
-                    <div class="row">
-                        <form class="col m8" @submit.prevent="newTeamSubmit" action="#">
-                            <div style="width: 100%;" class="input-field">
-                                <input v-model="title" style="width: 100%;" required type="text" placeholder="New Team Name" id="newTeamMembers">
-                                <label for="newTeamMembers">Create A Team</label>
-                            </div>
-                        </form>
+          </form>
 
-                        <form class="col m4" @submit.prevent="addTeamSubmit" action="#">
-                            <div style="width: 100%;" class="input-field">
-                                <input v-model="teamCode" style="width: 100%;" required type="text" placeholder="Team Code" id="teamCode">
-                                <label for="teamCode">Add A Team</label>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <a class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
-                </div>
+          <form class="col m4" @submit.prevent="addTeamSubmit" action="#">
+            <div style="width: 100%;" class="input-field">
+              <input v-model="teamCode" style="width: 100%;" required type="text" placeholder="Team Code" id="teamCode">
+              <label for="teamCode">Add A Team</label>
             </div>
-            <ul id="userPrefs" class="side-nav">
-                <li>
-                    <div class="user-view">
-                        <div class="background">
-                            <img class="responsive-img" src="https://source.unsplash.com/800x600/?nature">
-                        </div>
-                        <a><img class="circle" :src="profileImage"></a>
-                        <a><span class="white-text name">{{user.name}}</span></a>
-                        <a><span class="white-text email">{{user.email}}</span></a>
-                    </div>
-                </li>
-                <li><a class="waves-effect" href="#!">Setings and information here</a></li>
-            </ul>
-        </main>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="js/materialize.min.js"></script>
-        <script src="https://unpkg.com/vue" charset="utf-8"></script>
-        <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyC33Gp6-aRbajLAp22adwWJdIvXX4CVHcM",
-                authDomain: "spark-524b4.firebaseapp.com",
-                databaseURL: "https://spark-524b4.firebaseio.com",
-                projectId: "spark-524b4",
-                storageBucket: "",
-                messagingSenderId: "1043381207552"
-            };
-            firebase.initializeApp(config);
-            var provider = new firebase.auth.GoogleAuthProvider();
-        </script>
-        <script src="./js/app/main.js" charset="utf-8"></script>
-    </body>
+          </form>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">ok</a>
+      </div>
+    </div>
+    <ul id="userPrefs" class="side-nav">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img class="responsive-img" src="https://source.unsplash.com/800x600/?nature">
+          </div>
+          <a><img class="circle" :src="profileImage"></a>
+          <a><span class="white-text name">{{user.name}}</span></a>
+          <a><span class="white-text email">{{user.email}}</span></a>
+        </div>
+      </li>
+      <li><a class="waves-effect" href="#!">Setings and information here</a></li>
+    </ul>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script src="https://unpkg.com/vue" charset="utf-8"></script>
+  <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyC33Gp6-aRbajLAp22adwWJdIvXX4CVHcM",
+      authDomain: "spark-524b4.firebaseapp.com",
+      databaseURL: "https://spark-524b4.firebaseio.com",
+      projectId: "spark-524b4",
+      storageBucket: "",
+      messagingSenderId: "1043381207552"
+    };
+    firebase.initializeApp(config);
+    var provider = new firebase.auth.GoogleAuthProvider();
+  </script>
+  <script src="./js/anime.min.js" charset="utf-8"></script>
+  <script src="./js/app/main.js" charset="utf-8"></script>
+</body>
 
 </html>

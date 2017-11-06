@@ -13,9 +13,43 @@ html, body, main {
   margin: 0;
 }
 
+#welcomeTitle {
+  text-align: center;
+  font-size: 4vw;
+  font-weight: bold;
+}
+
+#welcomeTo {
+  text-align: center;
+  font-size: 3vw;
+  font-weight: lighter;
+}
+
+#welcomeSpark {
+  opacity: 0;
+  text-align: center;
+  font-size: 10vw;
+  font-weight: bold;
+  color: #ff6363;
+}
+
+#welcomeText {
+  opacity: 0;
+}
+
+#welcome {
+  width: 100%;
+}
+
 .menuDropDownBtn {
   float: right;
   display: block;
+}
+
+.menuDropDownBtnInvite {
+  float: right;
+  display: block;
+  color: white;
 }
 
 .menuBtnText {
@@ -122,6 +156,7 @@ a {
   color: #ff6363;
 }
 
+
 /* label underline focus color */
 
 .input-field input[type=text]:focus {
@@ -134,12 +169,14 @@ a {
   box-shadow: 0 1px 0 0 #ff6363;
 }
 
+
 /* invalid color */
 
 .input-field input[type=text].invalid {
   border-bottom: 1px solid #ff6363;
   box-shadow: 0 1px 0 0 #ff6363;
 }
+
 
 /* icon prefix focus color */
 
