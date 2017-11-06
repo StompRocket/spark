@@ -50,6 +50,7 @@ html, body, main {
   float: right;
   display: block;
   color: white;
+  font-weight: 500;
 }
 
 .menuBtnText {

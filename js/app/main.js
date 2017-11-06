@@ -221,7 +221,7 @@ var app = new Vue({
             offset: '-=400' // Starts 600ms before the previous animation ends
           }).add({
             targets: '#welcomeSpark',
-            translateY: -200,
+            translateY: -180,
             offset: '-=5' // Starts 600ms before the previous animation ends
           }).add({
             targets: '#welcomeText',
