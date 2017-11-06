@@ -48,7 +48,7 @@
                         </a>
                     </div>
 
-                    <div id="userInfo" data-activates="userPrefs" class="button-collapse waves-effect waves-red row card-panel">
+                    <div id="userInfo" @click="openSettings" class=" waves-effect waves-red row card-panel">
                         <div class="col s12 m9 row" id="userInfoRow" v-if="user.loggedIn">
                             <img class="profile-image circle col hide-on-small-only m3" :src="profileImage">
                             <div class="col s12 m9">
@@ -65,10 +65,11 @@
                 </div>
             </div>
             <div class="col s8 fullHeight ">
-                <div id="messagesContainer">
-                    <div v-if="loading" class="progress">
-                        <div class="indeterminate"></div>
-                    </div>
+                <div v-if="loading" class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+                <div v-if="chatting" id="messagesContainer">
+
                     <div v-for="message in messages" class="message">
                         <img class="sender-image circle" :src="getProfileImage(message.sender.image)">
                         <p class="message-text">{{message.text}}</p>
@@ -76,8 +77,33 @@
                         <br>
                     </div>
                 </div>
+                <div id="settings" v-if="settings">
+                    <div class="row">
+                        <h1 class="col s6">Settings</h1>
+                        <div class="col s6 card horizontal">
+                            <div class="card-image">
+                                <img class="circle" :src="profileImage">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <p class="userName">{{user.name}}</p>
+                                    <p class="userEmail">{{user.email}}</p>
+                                </div>
+                                <div class="card-action">
+                                    <a @click="login">Logout</a>
+                                </div>
+                            </div>
 
-                <div id="newMessageContanier" class="card-panel fullHeight">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+                    <br>
+
+
+                </div>
+
+                <div v-if="chatting" id="newMessageContanier" class="card-panel fullHeight">
 
                     <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
                         <div id="newMessageInputContainer" class="input-field col s8 m11">

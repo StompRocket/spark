@@ -39,6 +39,12 @@ html, body, main {
   width: 100%;
 }
 
+#settings {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
 .chatOptionsBtn {
   color: rgb(36, 36, 36);
 }
@@ -90,7 +96,8 @@ html, body, main {
 }
 
 #messagesContainer {
-  overflow: scroll!important;
+  overflow-y: auto!important;
+  overflow-x: hidden;
   height: 85%;
 }
 
@@ -151,7 +158,8 @@ a {
 #chatContainer {
   height: 80%;
   margin: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   margin-top: 5%;
   display: block;
 }

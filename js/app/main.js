@@ -4,6 +4,7 @@ var database = firebase.database()
 var global = {
   messaging: false,
   chat: function () {
+    app.chatting = true
     app.loading = true
     app.welcome = false
     var user = firebase.auth().currentUser
@@ -29,47 +30,55 @@ var global = {
       return result
     }
     var chat = getJsonFromUrl().c
-
-    if (window.global.messaging) {
-      messaging.getToken().then(function (token) {
-        console.log(token, '   adding membership to   ', chat)
+    if (chat == 'settings') {
+      app.chatting = false
+      app.settings = true
+      app.openSettings()
+    } else {
+      app.settings = false
+      if (window.global.messaging) {
+        messaging.getToken().then(function (token) {
+          console.log(token, '   adding membership to   ', chat)
+          firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
+            token: token,
+            uid: uid,
+            name: name
+          })
+        })
+      } else {
         firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
-          token: token,
+          token: null,
           uid: uid,
           name: name
         })
-      })
-    } else {
-      firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
-        token: null,
-        uid: uid,
-        name: name
+      }
+
+      var chatRef = firebase.database().ref('chats/' + chat)
+      chatRef.on('value', function (snapshot) {
+        if (!snapshot.val()) {
+          window.location.href = './'
+        }
+        app.messages = snapshot.val().mesages
+        app.loading = false
+        // console.log(snapshot.val().mesages)
+        document.title = snapshot.val().title
+        firebase.database().ref('users/' + uid + '/' + chat).set({
+          title: snapshot.val().title,
+          id: chat
+        })
+        setTimeout(function () {
+          var elem = document.getElementById('messagesContainer')
+          elem.scrollTop = elem.scrollHeight
+        }, 200)
       })
     }
-
-    var chatRef = firebase.database().ref('chats/' + chat)
-    chatRef.on('value', function (snapshot) {
-      if (!snapshot.val()) {
-        window.location.href = './'
-      }
-      app.messages = snapshot.val().mesages
-      app.loading = false
-      // console.log(snapshot.val().mesages)
-      document.title = snapshot.val().title
-      firebase.database().ref('users/' + uid + '/' + chat).set({
-        title: snapshot.val().title,
-        id: chat
-      })
-      setTimeout(function () {
-        var elem = document.getElementById('messagesContainer')
-        elem.scrollTop = elem.scrollHeight
-      }, 200)
-    })
   }
+
 }
 var app = new Vue({
   el: '#app',
   data: {
+    chatting: false,
     loginText: 'Login',
     profileImage: './images/profile_placeholder.png',
     title: '',
@@ -182,6 +191,18 @@ var app = new Vue({
 
   },
   methods: {
+    openSettings: function () {
+      this.chatting = false
+      var stateObj = {
+        foo: 'bar'
+      }
+      app.settings = true
+      history.pushState(stateObj, 'Spark', '?c=settings')
+      app.messages = null
+      app.settings = true
+      console.log('settings')
+      document.title = 'Spark | Settings'
+    },
     deleteChat: function (chat) {
       console.log(chat.title)
       if (window.confirm('Are you sure you want to delete ' + chat.title)) {
