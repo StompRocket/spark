@@ -83,6 +83,7 @@ var app = new Vue({
     chats: [],
     loading: true,
     message: '',
+settings: false,
     welcome: true,
     teamCode: '',
     sharing: false,
