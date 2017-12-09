@@ -36,14 +36,7 @@ var global = {
       app.openSettings()
     } else {
       app.settings = false
-      if (window.global.messaging) {
-        messaging.getToken().then(function (token) {
-          console.log(token, '   adding token')
-          firebase.database().ref('users/' + uid + '/tokens/' + token).set({
-            token: token
-          })
-        })
-      }
+
       firebase.database().ref('chats/' + chat + '/members/' + uid + '/').set({
         uid: uid,
         name: name
@@ -83,7 +76,7 @@ var app = new Vue({
     chats: [],
     loading: true,
     message: '',
-settings: false,
+    settings: false,
     welcome: true,
     teamCode: '',
     sharing: false,
@@ -119,7 +112,22 @@ settings: false,
         app.user.email = email
         console.log(uid)
         app.profileImage = photoUrl
-
+        messaging.requestPermission()
+          .then(function () {
+            console.log('Notification permission granted.')
+            window.global.messaging = true
+            return messaging.getToken()
+          })
+          .then(function (token) {
+            console.log(token)
+            firebase.database().ref('users/' + uid + '/tokens/' + token).set({
+              token: token
+            })
+          })
+          .catch(function (err) {
+            console.log('An error occurred while retrieving token. ', err)
+            console.log('Error retrieving Instance ID token. ', err)
+          })
         function getJsonFromUrl () {
           var query = location.search.substr(1)
           var result = {}
@@ -136,22 +144,6 @@ settings: false,
           global.chat()
           app.welcome = false
           console.log(app.welcome)
-          messaging.requestPermission()
-            .then(function () {
-              console.log('Notification permission granted.')
-              window.global.messaging = true
-              return messaging.getToken()
-            })
-            .then(function (token) {
-              console.log(token)
-              firebase.database().ref('users/' + uid + '/tokens/' + token).set({
-                token: token
-              })
-            })
-            .catch(function (err) {
-              console.log('An error occurred while retrieving token. ', err)
-              console.log('Error retrieving Instance ID token. ', err)
-            })
         } else {
           document.title = 'Spark'
           app.loading = false
@@ -163,19 +155,22 @@ settings: false,
         })
         var chatsRef = firebase.database().ref('users/' + uid)
         chatsRef.on('child_added', function (data) {
-          var title = data.val().title
-          var id = data.val().id
-
-          var membersRef = firebase.database().ref('chats/' + data.val().id + '/members/')
-          membersRef.on('value', function (snapshot) {
+          if (data.val().title) {
+            var title = data.val().title
+            var id = data.val().id
+            //console.log(data.val())
+            //console.log(title + id)
+            var membersRef = firebase.database().ref('chats/' + data.val().id + '/members/')
+            membersRef.on('value', function (snapshot) {
             // console.log(snapshot.val())
-            app.chats.push({
-              title: title,
-              id: id,
-              members: snapshot.val()
+              app.chats.push({
+                title: title,
+                id: id,
+                members: snapshot.val()
 
+              })
             })
-          })
+          }
           app.loading = false
         })
       } else {
