@@ -158,8 +158,8 @@ var app = new Vue({
           if (data.val().title) {
             var title = data.val().title
             var id = data.val().id
-            //console.log(data.val())
-            //console.log(title + id)
+            // console.log(data.val())
+            // console.log(title + id)
             var membersRef = firebase.database().ref('chats/' + data.val().id + '/members/')
             membersRef.on('value', function (snapshot) {
             // console.log(snapshot.val())

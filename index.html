@@ -32,14 +32,14 @@
             <a v-for="chat in chats" class=" waves-effect waves-red chatLink grey-text text-darken-3">
 
               <div class="chatContent row">
-                <div @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class="col s11">
+                <div @click.prevent="openChat(chat.id)" :href="getURL(chat.id)" class="col s10">
                   <p class="chatName">{{chat.title}}</p>
                   <p class="chatMembers">{{getMembers(chat)}}</p>
 
                 </div>
 
-                <div @click="deleteChat(chat)" class="col s1 valign-wrapper">
-                  <p class="chatOptionsBtn"><i class="material-icons grey-text text-darken-3">delete_forever</i></p>
+                <div @click="deleteChat(chat)" class="col s2 valign-wrapper">
+                  <p class="chatOptionsBtn"><i class="material-icons grey-text text-darken-3 chatDeleteBtn">delete_forever</i></p>
                 </div>
               </div>
 
@@ -49,7 +49,7 @@
 
           <div id="userInfo" @click="openSettings" style="width:100%;" class=" waves-effect waves-red row card-panel">
             <div class="col s12 m9 row" id="userInfoRow" v-if="user.loggedIn">
-              <img class="profile-image circle col hide-on-small-only m3" :src="profileImage">
+              <img class="profile-image circle col hide-on-med-and-down m3" :src="profileImage">
               <div class="col s12 m9">
                 <p class="userName">{{user.name}}</p>
                 <p class="userEmail">{{user.email}}</p>
@@ -58,7 +58,7 @@
             </div>
 
 
-            <a @click="login" class=" col s12 m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
+            <a @click="login" class=" col hide-on-med-and-down m3 btn btn-flat waves-light white-text login-btn"><b>{{loginText}}</b></a>
           </div>
 
         </div>
@@ -115,12 +115,12 @@
         <div v-if="chatting" id="newMessageContanier" class="card-panel fullHeight">
 
           <form v-on:submit.prevent="send" class="row" id="newMessageForm" action="#">
-            <div id="newMessageInputContainer" class="input-field col s8 m11">
+            <div id="newMessageInputContainer" class="input-field col m8 l11">
               <input class="" autocomplete="off" v-model="message" type="text" id="newMessage">
               <label class="labelMessage" for="newMessage">Message...</label>
             </div>
             <!-- Accent-colored raised button with ripple -->
-            <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col s4 m1 btn-large btn">
+            <button value="submit" type="submit" id="sendBtn" :disabled="disabled()" class="col s4 m4 l1 btn-large btn">
               Send
               </button>
           </form>
