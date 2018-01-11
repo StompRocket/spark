@@ -1,6 +1,6 @@
 # spark
 
-> A team messaging app
+> A cloud based messenger
 
 ## Build Setup
 
