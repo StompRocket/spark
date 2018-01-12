@@ -23,7 +23,7 @@ export default {
   // The signed-in user info.
   var user = result.user;
   // ...
-  this.$router.replace('hello')
+  this.$router.replace('/a/welcome')
 }).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
