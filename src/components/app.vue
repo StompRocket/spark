@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <h1>app</h1>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li><a href="#!">First Sidebar Link</a></li>
+      <li><a href="#!">Second Sidebar Link</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <router-view></router-view>
 </div>
 </template>
 
@@ -22,22 +27,22 @@ export default {
     }
   }
 }
+var elem = document.querySelector('.sidenav');
+let options = {
+  draggable: true
+}
+var instance = M.Sidenav.init(elem, options);
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style >
+.appCompoenent {
+    padding-left: 300px;
+  }
+
+  @media only screen and (max-width : 992px) {
+    .appCompoenent {
+      padding-left: 0;
+    }
+  }
 </style>
