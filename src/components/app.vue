@@ -1,48 +1,29 @@
 <template>
-  <div id="app">
-    <ul id="slide-out" class="sidenav sidenav-fixed">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-    </ul>
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <router-view></router-view>
+<div class="app page">
+  <div class="chatNav card">
+    <div class="menu">
+
+      <button type="button" name="button" class="vcenter btn-flat white-text red inviteBtn">Invite</button>
+      <button type="button" name="button" class="vcenter btn-flat  inviteBtn"> <i class="material-icons red-text">add</i></button>
+    </div>
+    <div class="chatItem">
+      <p class="name">Name</p>
+      <p class="members">Members</p>
+    </div>
+  </div>
+  <chat/>
 </div>
 </template>
-
 <script>
-import firebase from 'firebase'
+import '@/assets/app.scss'
+import chat from '@/components/chat.vue'
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to spark'
-    }
+  name: "app",
+  components: {
+    chat
   },
-  methods: {
-    logout() {
-      firebase.auth().signOut().then(() => {
-        this.$router.replace('login')
-      })
+  data: () => ({
 
-    }
-  }
+  })
 }
-var elem = document.querySelector('.sidenav');
-let options = {
-  draggable: true
-}
-var instance = M.Sidenav.init(elem, options);
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style >
-.appCompoenent {
-    padding-left: 300px;
-  }
-
-  @media only screen and (max-width : 992px) {
-    .appCompoenent {
-      padding-left: 0;
-    }
-  }
-</style>
