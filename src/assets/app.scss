@@ -36,6 +36,7 @@
   border-bottom-style: solid;
   border-color: #777777;
   border-width: thin;
+  border-top-style: none;
 
   .name {
     font-weight: 600;
@@ -47,4 +48,9 @@
     margin-top: 2px;
     font-weight: 300;
   }
+}
+
+.chats {
+  height: 90%;
+  overflow-y: scroll;
 }
