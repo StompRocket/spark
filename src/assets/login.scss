@@ -1,0 +1,43 @@
+@import 'varibles';
+
+.login {
+  background-color: $secondary-accent;
+}
+
+.loginStack {
+  background-color: white;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60%;
+  border-radius: $rounding;
+  padding: 5%;
+
+  h1 {
+    text-align: center;
+    font-size: 8vw;
+    font-weight: 600;
+  }
+
+  .loginButtons {
+    margin-top: 50%;
+  }
+
+  button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $secondary-accent;
+    border: none;
+    border-radius: $rounding;
+    color: white;
+    font-weight: 500;
+    width: 70%;
+    font-size: 4vw;
+    height: 10vw;
+    margin-top: 5vw;
+  }
+}

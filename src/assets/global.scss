@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import 'varibles';
+
+#app,
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  color: $primary-color;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.page {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
