@@ -154,8 +154,11 @@
     @media screen and (min-width: 1220px) {
       height: 53vw;
     }
+    @media screen and (min-width: 1500px) {
+      height: 48vw;
+    }
     @media screen and (min-width: 2300px) {
-      height: 46vw;
+      height: 45vw;
     }
     overflow-y: scroll;
     overflow-x: hidden;
@@ -271,6 +274,10 @@
       }
       @media screen and (min-width: 1220px) {
         height: 4vw;
+      }
+      @media screen and (min-width: 1500px) {
+        height: 4vw;
+        font-size: 1vw;
       }
       @media screen and (min-width: 2300px) {
         height: 3vw;
