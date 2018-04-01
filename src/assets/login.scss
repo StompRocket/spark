@@ -15,15 +15,24 @@
   height: 60%;
   border-radius: $rounding;
   padding: 5%;
+  @media screen and (min-width: 1200px) {
+    height: 90%;
+  }
 
   h1 {
     text-align: center;
     font-size: 8vw;
     font-weight: 600;
+    @media screen and (min-width: 1200px) {
+      font-size: 5vw;
+    }
   }
 
   .loginButtons {
     margin-top: 50%;
+    @media screen and (min-width: 1200px) {
+      margin-top: 5%;
+    }
   }
 
   button {
@@ -39,5 +48,11 @@
     font-size: 4vw;
     height: 10vw;
     margin-top: 5vw;
+    @media screen and (min-width: 1200px) {
+      font-size: 2vw;
+      margin-top: 0;
+      width: 40%;
+      height: 5vw;
+    }
   }
 }

@@ -159,7 +159,7 @@ textarea:focus {
       height: 65vw;
     }
     @media screen and (min-width: 1220px) {
-      height: 53vw;
+      height: 40vw;
     }
     @media screen and (min-width: 1500px) {
       height: 48vw;
@@ -191,8 +191,8 @@ textarea:focus {
         margin-bottom: 0.5%;
       }
       @media screen and (min-width: 1220px) {
-        margin-top: 0.2%;
-        margin-bottom: 0.2%;
+        margin-top: 0.4%;
+        margin-bottom: 0.4%;
       }
 
       .text {
@@ -246,7 +246,7 @@ textarea:focus {
           font-size: 1vw;
         }
         @media screen and (min-width: 1220px) {
-          font-size: 0.6vw;
+          font-size: 1vw;
         }
         @media screen and (min-width: 2300px) {
           font-size: 0.5vw;
