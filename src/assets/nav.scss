@@ -6,6 +6,14 @@ nav {
   color: $primary-color;
   display: flex;
 
+  .toggle-button {
+    border: none;
+    background-color: white;
+    outline: none;
+    color: $primary-color;
+    display: block;
+  }
+
   .backBtn {
     width: 20px;
     float: left;

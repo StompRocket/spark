@@ -1,0 +1,56 @@
+@import 'varibles';
+@import 'nav';
+
+.settings {
+  main {
+    padding: 4%;
+
+    h1 {
+      font-weight: bold;
+      font-size: 6vw;
+      margin-bottom: 4%;
+    }
+
+    .settingsRow {
+      display: flex;
+      flex-wrap: wrap;
+
+      .desc {
+        font-weight: bold;
+        width: 100%;
+        font-size: 4vw;
+        display: block;
+        flex: 0 0 100%;
+
+        span {
+          font-weight: 700;
+          width: 100%;
+          font-size: 3vw;
+        }
+      }
+    }
+
+    input {
+      background-color: $text-bubble;
+      border: none;
+      border-radius: $rounding;
+      width: 70%;
+      height: 10vw;
+      font-weight: 5vw;
+      padding: 2%;
+      font-size: 4vw;
+    }
+
+    .saveBtn {
+      width: 22%;
+      margin-left: 4%;
+      background-color: $primary-color;
+      border: none;
+      border-radius: $rounding;
+      height: 10vw;
+      color: white;
+      font-weight: bold;
+      font-size: 3vw;
+    }
+  }
+}

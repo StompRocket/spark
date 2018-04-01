@@ -5,7 +5,7 @@
   </nav>
   <main>
     <form class="searchForm">
-      <input type="search" class="searchChats" name="searchChats" value="" placeholder="Search">
+      <input type="text" class="searchChats" name="searchChats" value="" placeholder="Search">
     </form>
 
     <h2>Chats</h2>

@@ -5,16 +5,17 @@
     <button @click="openMenu" class="toggle-button"><i class="material-icons">arrow_back</i></button>
     <h1>Spark</h1>
     <h2>{{chatTitle}}</h2>
-    <button @click="openMenu" class="toggle-button"><i class="material-icons">settings</i></button>
+    <button @click="openSettings" class="toggle-button"><i class="material-icons">settings</i></button>
   </nav>
 
   <div id="messages" class="messages">
+    <h1 v-if="loading">Loading</h1>
     <div v-for="message in messages" class="message">
       <div v-bind:class="{ mine: isMine(message) }" class="text">
         <p class="messageText" v-html="richTextParse(message.text)"></p>
 
       </div>
-      <p v-if="!isMine(message)" class="messageSender">{{message.sender.name}}</p>
+      <p v-if="!isMine(message)" class="messageSender">{{message.sender.name}} {{time(message)}}</p>
 
     </div>
   </div>
@@ -79,6 +80,10 @@ export default {
     openMenu() {
       this.$router.replace('/c/')
     },
+    openSettings() {
+      this.$router.push('/s/' + this.$route.params.id)
+    },
+
     isMine(message) {
       //  console.log(message);
       let user = firebase.auth().currentUser;
@@ -112,15 +117,22 @@ export default {
             title: snapshot.val().title,
             id: id
           })
+          this.messages = snapshot.val().mesages
+          //  console.log('first ' + moment().format('h:mm:ss a'));
+          objDiv.scrollTop = objDiv.scrollHeight;
+          this.scrollBottom()
+          this.loading = false
+
           let chatRef = firebase.database().ref('chats/' + id + '/mesages/').limitToLast(100);
           chatRef.on('value', (data) => {
-            console.log(data.val());
+            //console.log('second ' + moment().format('h:mm:ss a'));
             this.messages = data.val()
             objDiv.scrollTop = objDiv.scrollHeight;
             this.scrollBottom()
-            this.loading = false
 
-          });
+
+
+          })
 
 
         } else {
@@ -166,12 +178,30 @@ export default {
         sender: {
           name: name,
           image: photoUrl,
-          time: timeStamp,
+          time: Date.now(),
           uid: uid
         },
         text: this.newMessage
       });
       this.newMessage = ''
+
+    },
+    time(message) {
+      let time = message.sender.time
+      if (time) {
+        let format = moment(time).format("dddd, MMMM Do, h:mm")
+        //console.log(time, format);
+        if (format && format != 'Invalid date') {
+
+          //  console.log('there is time');
+
+          return format
+        } else {
+          return ''
+        }
+      } else {
+        return ''
+      }
 
     }
 

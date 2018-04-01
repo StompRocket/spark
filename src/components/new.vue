@@ -75,7 +75,7 @@ export default {
           if (!/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(name)) {
             let newChatRef = firebase.database().ref('chats/').push()
             let key = newChatRef.key
-            let time = JSON.stringify(moment().utc())
+            let time = Date.now()
             newChatRef.set({
               title: name,
               id: key,

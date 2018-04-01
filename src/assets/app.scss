@@ -8,14 +8,6 @@ textarea:focus {
   outline: none;
 }
 
-.toggle-button {
-  border: none;
-  background-color: white;
-  outline: none;
-  color: $primary-color;
-  display: inline;
-}
-
 #messages {
   height: 80%;
   overflow-y: scroll;

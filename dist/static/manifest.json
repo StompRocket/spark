@@ -1,0 +1,106 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Spark",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "/",
+  "short_name": "Spark",
+  "theme_color": "transparent",
+  "description": "A productive chat app for teams",
+  "orientation": "any",
+  "background_color": "transparent",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [{
+      "src": "/static/static/images/9d41f6ef-1fbe-b810-a80d-84e4608ceeb9.webPlatform.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/static/images/f471b74f-0967-aad3-d6d4-dfff32394110.webPlatform.png",
+      "sizes": "1240x600",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/static/images/756f3596-0ca4-5184-ed04-bcfce30f4e11.webPlatform.png",
+      "sizes": "300x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/static/images/fea4d3b9-9b55-6673-9776-dddeafd0a055.webPlatform.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/static/images/6a483504-3a3d-455b-2956-cf2ea37fab2c.webPlatform.png",
+      "sizes": "88x88",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/static/images/8793f1ca-a5f5-4e20-1bb0-50f1c5c4551a.webPlatform.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/static/images/d3ecdc0c-5e9b-c4cc-c112-28d1a650d6b0.webPlatform.png",
+      "sizes": "50x50",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/54378ed1-fbf7-81e4-7e4b-0a82b9400d35.webPlatform.png",
+      "sizes": "620x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/e7a516bc-08cb-4307-f87c-2863e35cf5c0.webPlatform.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/f66fba22-3e03-ba67-70a0-8683c5c23509.webPlatform.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/45d0ecd3-b77b-97c5-e7ea-41c1b0d75eae.webPlatform.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/398f929a-0892-1047-1f5f-981176806384.webPlatform.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/8244b3e1-e990-a8e5-631a-7f7331b2bb4b.webPlatform.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/648e806d-6147-bb38-207e-e39e321e6070.webPlatform.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/00acacb5-ff82-f547-955b-94ebcabd212a.webPlatform.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/bc83ecd7-1b18-2fd2-2f12-b57e8dd833be.webPlatform.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/1733bafc-d5e7-8d8a-2603-c49a509c9f37.webPlatform.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/fb7dad8b-9bc7-869f-08bd-8ae29e92d1f6.webPlatform.png",
+      "sizes": "76x76",
+      "type": "image/png"
+    }
+  ]
+}

@@ -3,16 +3,17 @@ import Router from 'vue-router'
 import app from '@/components/app'
 import login from '@/components/login'
 import menu from '@/components/menu'
+import settings from '@/components/settings'
 import newChat from '@/components/new'
 import firebase from 'firebase'
 Vue.use(Router)
 
 let router = new Router({
   routes: [{
-      path: '/',
-      name: 'Login',
-      component: login
-    },
+    path: '/',
+    name: 'Login',
+    component: login
+  },
     {
       path: '/c/',
       name: 'menu',
@@ -45,20 +46,42 @@ let router = new Router({
       params: {
         id: false
       }
+    },
+    {
+      path: '/s/:id',
+      name: 'settings',
+      component: settings,
+      meta: {
+        requiresAuth: true
+      },
+      params: {
+        id: false
+      }
+    },
+    {
+      path: '/s/',
+      name: 'settingsRedirect',
+      component: settings,
+      meta: {
+        requiresAuth: true
+      },
+      params: {
+        id: false
+      }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const currentUser = firebase.auth().currentUser;
-  //console.log(`requiresAuth: ${requiresAuth} user: ${currentUser}`);
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const currentUser = firebase.auth().currentUser
+  // console.log(`requiresAuth: ${requiresAuth} user: ${currentUser}`);
   if (requiresAuth && !currentUser) {
-    next('/');
+    next('/')
   } else if (requiresAuth && currentUser) {
-    next();
+    next()
   } else {
-    next();
+    next()
   }
-});
+})
 export default router
