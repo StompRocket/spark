@@ -1,0 +1,312 @@
+@import 'varibles';
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+#Slideout {
+  height: 100%;
+}
+
+#panel {
+  height: 100%;
+}
+
+.toggle-button {
+  border: none;
+  background-color: white;
+  outline: none;
+  color: $primary-color;
+}
+
+.slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none;
+  background-color: rgb(245, 245, 245);
+  color: $primary-color;
+  padding: 5%;
+  @media screen and (min-width: 1020px) {
+    padding: 2%;
+  }
+  @media screen and (min-width: 1220px) {
+    padding: 1%;
+  }
+
+  h2 {
+    font-weight: 800;
+    font-size: 5vw;
+    @media screen and (min-width: 1020px) {
+      font-size: 3vw;
+    }
+    @media screen and (min-width: 1220px) {
+      font-size: 2vw;
+    }
+  }
+
+  .chatItem {
+    margin-top: 5%;
+    @media screen and (min-width: 1020px) {
+      margin-top: 2%;
+    }
+    @media screen and (min-width: 1220px) {
+      margin-top: 1%;
+    }
+  }
+
+  a {
+    color: $primary-accent;
+    text-decoration: none;
+  }
+}
+
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  height: 100%;
+  background-color: white;
+  color: $primary-color;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  min-height: 100vh;
+
+  nav {
+    height: 15vw;
+    @media screen and (min-width: 760px) {
+      height: 10vw;
+    }
+    @media screen and (min-width: 1020px) {
+      height: 5vw;
+      padding: 1px 1px 1px 5px;
+    }
+    @media screen and (min-width: 1220px) {
+      height: 4vw;
+    }
+    @media screen and (min-width: 2300px) {
+      height: 3vw;
+      padding: 0;
+    }
+    padding: 2%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.16), 0 1px 1px rgba(0,0,0,0.23);
+    margin-bottom: 2px;
+
+    .toggle-button {
+      display: inline;
+    }
+
+    h1 {
+      display: inline-block;
+      width: 30%;
+      font-weight: bold;
+      font-size: 6vw;
+      @media screen and (min-width: 760px) {
+        font-size: 4vw;
+      }
+      @media screen and (min-width: 1020px) {
+        font-size: 2vw;
+      }
+      @media screen and (min-width: 2300px) {
+        font-size: 1.5vw;
+      }
+    }
+
+    h2 {
+      display: inline-block;
+      width: 40%;
+      line-height: 15vw;
+      @media screen and (min-width: 760px) {
+        line-height: 10vw;
+        font-size: 3vw;
+        width: 60%;
+      }
+      @media screen and (min-width: 1020px) {
+        line-height: 5vw;
+        font-size: 2vw;
+        width: 60%;
+      }
+      @media screen and (min-width: 1220px) {
+        line-height: 4vw;
+      }
+      @media screen and (min-width: 1220px) {
+        line-height: 3vw;
+        font-size: 1.3vw;
+      }
+    }
+  }
+
+  #messages {
+    height: 150vw;
+    @media screen and (min-width: 760px) {
+      height: 116vw;
+    }
+    @media screen and (min-width: 1020px) {
+      height: 65vw;
+    }
+    @media screen and (min-width: 1220px) {
+      height: 40vw;
+    }
+    @media screen and (min-width: 1500px) {
+      height: 48vw;
+    }
+    @media screen and (min-width: 2300px) {
+      height: 45vw;
+    }
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: 2%;
+    margin-right: 2%;
+
+    a {
+      color: $primary-accent;
+      font-style: none;
+    }
+
+    .message {
+      width: 100%;
+      margin-top: 2%;
+      margin-bottom: 2%;
+      display: inline-block;
+      @media screen and (min-width: 760px) {
+        margin-top: 1%;
+        margin-bottom: 1%;
+      }
+      @media screen and (min-width: 1020px) {
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+      }
+      @media screen and (min-width: 1220px) {
+        margin-top: 0.4%;
+        margin-bottom: 0.4%;
+      }
+
+      .text {
+        color: $primary-color;
+        max-width: 80%;
+        height: auto;
+        display: inline-block;
+        border-radius: $bubble-rounding;
+        border-color: $text-bubble;
+        border-style: solid;
+        border-width: 1px;
+        padding: 2% 5%;
+        word-wrap: break-word;
+        overflow: hidden;
+        @media screen and (min-width: 760px) {
+          padding: 1% 3%;
+        }
+        @media screen and (min-width: 1020px) {
+          padding: 1% 2%;
+        }
+        @media screen and (min-width: 1220px) {
+          padding: 0.6% 1.6%;
+          font-size: 1.2vw;
+        }
+        @media screen and (min-width: 2300px) {
+          padding: 0.5% 1.5%;
+          font-size: 0.6vw;
+        }
+      }
+
+      .text.mine {
+        background-color: $text-bubble;
+        border-style: solid;
+        border-width: 1px;
+        float: right;
+      }
+
+      .messageText {
+        margin-bottom: 0;
+      }
+
+      .messageSender {
+        color: $light;
+        margin-top: 1px;
+        font-size: 3vw;
+        margin-left: 10px;
+        @media screen and (min-width: 760px) {
+          font-size: 2vw;
+        }
+        @media screen and (min-width: 1020px) {
+          font-size: 1vw;
+        }
+        @media screen and (min-width: 1220px) {
+          font-size: 1vw;
+        }
+        @media screen and (min-width: 2300px) {
+          font-size: 0.5vw;
+        }
+      }
+    }
+  }
+
+  .newMessage {
+    padding: 2%;
+    height: 15vw;
+    width: 100%;
+    padding-left: 4%;
+    @media screen and (min-width: 1020px) {
+      padding: 1%;
+    }
+    @media screen and (min-width: 1220px) {
+      padding-left: 2%;
+      font-size: 2vw;
+    }
+    @media screen and (min-width: 2300px) {
+      padding: 0.5%;
+    }
+
+    input {
+      outline-width: 0;
+      color: $primary-color;
+      width: 100%;
+      border: none;
+      @media screen and (min-width: 1020px) {
+        height: 3vw;
+      }
+      @media screen and (min-width: 1220px) {
+        height: 4vw;
+      }
+      @media screen and (min-width: 1500px) {
+        height: 4vw;
+        font-size: 1vw;
+      }
+      @media screen and (min-width: 2300px) {
+        height: 3vw;
+        font-size: 1vw;
+      }
+      border-style: none;
+
+      :focus {
+        outline-width: 0;
+        outline: none;
+        border-style: none;
+      }
+    }
+  }
+}
+
+.slideout-open,
+.slideout-open .slideout-panel,
+.slideout-open body {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
