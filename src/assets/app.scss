@@ -1,5 +1,12 @@
 @import 'varibles';
 
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
 #Slideout {
   height: 100%;
 }
