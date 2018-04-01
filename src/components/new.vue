@@ -4,11 +4,22 @@
     <router-link class="backBtn" to="/c/">cancel</router-link>
     <h1 class="menuTitle">Spark</h1>
   </nav>
-  <main>
-    <button>Create New</button>
+
+  <div v-if="options" class="options">
+    <button @click="createNew">Create New</button>
     <p>or</p>
-    <button>Enter Invite Code</button>
-  </main>
+    <button @click="inviteCode">Enter Invite Code</button>
+  </div>
+
+
+  <div v-if="createNewView" class="createNew">
+    <form @submit.prevent="create" class="newChatNameForm">
+      <h2>Name your chat</h2>
+      <input v-model="newChatName" type="text" name="newChatName" value="" placeholder="Graphite Writer developer chat">
+      <p class="error">{{error}}</p>
+    </form>
+    <button @click="create">Create</button>
+  </div>
 
 
 
@@ -26,7 +37,10 @@ export default {
   name: 'newChat',
   data() {
     return {
-      chats: []
+      options: false,
+      createNewView: true,
+      newChatName: '',
+      error: 'must be less than 15 characters'
     }
   },
   created() {
@@ -39,18 +53,69 @@ export default {
         emailVerified = user.emailVerified;
         uid = user.uid;
         //  console.log(name, uid);
-        firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
-          for (const value of Object.values(snapshot.val())) {
-            if (value.id) {
-              this.chats.push(value)
-            }
-          }
-          this.loading = false
-        });
       } else {
         this.$router.replace('/')
       }
     });
+  },
+  methods: {
+    createNew() {
+      this.options = false
+      this.createNewView = true;
+    },
+    inviteCode() {
+      this.options = false
+    },
+    create() {
+      let name = this.newChatName
+      let user = firebase.auth().currentUser
+      let uid = user.uid
+      if (name) {
+        if (name.length <= 35) {
+          if (!/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(name)) {
+            let newChatRef = firebase.database().ref('chats/').push()
+            let key = newChatRef.key
+            let time = JSON.stringify(moment().utc())
+            newChatRef.set({
+              title: name,
+              id: key,
+              mesages: {
+                '-KuvTy9nUfCdKGkPsMrs': {
+                  text: 'A new spark team',
+                  sender: {
+                    name: 'admin',
+                    image: 'spark',
+                    uid: 'spark',
+                    time: time
+                  }
+                }
+              },
+              meta: {
+                members: {
+                  [uid]: {
+                    name: name,
+                    uid: uid
+                  }
+                },
+                time: time,
+                image: 'spark'
+
+              }
+
+            }).then((snap) => {
+
+              this.$router.push('/c/' + key)
+            })
+          } else {
+            this.error = "can not contain special characters"
+          }
+        } else {
+          this.error = 'chat name must be less than 30 characters'
+        }
+      } else {
+        this.error = 'chat name is required'
+      }
+    }
   }
 
 }

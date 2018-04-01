@@ -2,7 +2,18 @@
 @import 'nav';
 
 .new {
-  main {
+  button {
+    width: 100%;
+    border: none;
+    border-radius: $rounding;
+    color: white;
+    height: 15vw;
+    font-size: 5vw;
+    font-weight: 500;
+    background-color: $primary-color;
+  }
+
+  .options {
     position: relative;
     top: 40%;
     transform: translateY(-50%);
@@ -11,16 +22,44 @@
     p {
       color: $light;
     }
+  }
+
+  .createNew {
+    height: 90%;
+    padding: 4%;
+
+    .newChatNameForm {
+      position: relative;
+      top: 40%;
+      transform: translateY(-50%);
+
+      h2 {
+        margin-bottom: 2%;
+        font-weight: bold;
+      }
+
+      .error {
+        color: $light;
+        font-size: 4vw;
+      }
+
+      input {
+        padding: 2%;
+        border: none;
+        width: 100%;
+        background-color: $text-bubble;
+        border-radius: $rounding;
+        font-size: 5vw;
+        color: $primary-color;
+        height: 10vw;
+      }
+    }
 
     button {
-      width: 100%;
-      border: none;
-      border-radius: $rounding;
-      color: white;
-      height: 15vw;
-      font-size: 5vw;
-      font-weight: 500;
-      background-color: $primary-color;
+      position: absolute;
+      bottom: 0;
+      width: 85%;
+      margin: 4%;
     }
   }
 }

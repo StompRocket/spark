@@ -4,6 +4,7 @@ nav {
   box-shadow: 0 1px 1px rgba(0,0,0,0.16), 0 1px 1px rgba(0,0,0,0.23);
   margin-bottom: 2px;
   color: $primary-color;
+  display: flex;
 
   .backBtn {
     width: 20px;
@@ -18,6 +19,7 @@ nav {
     width: 30%;
     font-weight: bold;
     font-size: 6vw;
+    line-height: 13vw;
   }
 
   h1.menuTitle {
@@ -28,8 +30,10 @@ nav {
   }
 
   h2 {
-    display: inline-block;
+    height: 100%;
+    display: block;
     width: 40%;
-    line-height: 15vw;
+    overflow: hidden;
+    line-height: 13vw;
   }
 }

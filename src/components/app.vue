@@ -2,9 +2,10 @@
 <div class="app page">
 
   <nav>
-    <button @click="openMenu" class="toggle-button"><i class="material-icons">menu</i></button>
+    <button @click="openMenu" class="toggle-button"><i class="material-icons">arrow_back</i></button>
     <h1>Spark</h1>
     <h2>{{chatTitle}}</h2>
+    <button @click="openMenu" class="toggle-button"><i class="material-icons">settings</i></button>
   </nav>
 
   <div id="messages" class="messages">
@@ -17,7 +18,7 @@
 
     </div>
   </div>
-  <form v-if="messages[0]" class="newMessage" @submit.prevent="send">
+  <form v-if="messages" class="newMessage" @submit.prevent="send">
     <input autocomplete="off" type="text" name="newMessage" placeholder="Type your message here then press enter to send" v-model="newMessage">
   </form>
 
@@ -55,7 +56,7 @@ export default {
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
         uid = user.uid;
-        //console.log(name, uid);
+
         firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
           for (const value of Object.values(snapshot.val())) {
             if (value.id) {
@@ -104,19 +105,21 @@ export default {
       this.loading = true
       this.messages = []
       let objDiv = document.getElementById("messages");
-      firebase.database().ref('chats/' + id).on('value', (snapshot) => {
+      firebase.database().ref('chats/' + id).once('value', (snapshot) => {
         if (snapshot.val()) {
           this.chatTitle = snapshot.val().title
           firebase.database().ref('users/' + uid + '/' + id).set({
             title: snapshot.val().title,
             id: id
           })
-          let chatRef = firebase.database().ref('chats/' + id + '/mesages/');
-          chatRef.on('child_added', (data) => {
-            this.messages.push(data.val())
+          let chatRef = firebase.database().ref('chats/' + id + '/mesages/').limitToLast(100);
+          chatRef.on('value', (data) => {
+            console.log(data.val());
+            this.messages = data.val()
             objDiv.scrollTop = objDiv.scrollHeight;
             this.scrollBottom()
             this.loading = false
+
           });
 
 
@@ -130,6 +133,7 @@ export default {
 
 
     },
+
     scrollBottom() {
       let objDiv = document.getElementById("messages");
       setTimeout(function() {
