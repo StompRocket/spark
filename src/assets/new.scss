@@ -1,0 +1,26 @@
+@import 'varibles';
+@import 'nav';
+
+.new {
+  main {
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+    padding: 4%;
+
+    p {
+      color: $light;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: $rounding;
+      color: white;
+      height: 15vw;
+      font-size: 5vw;
+      font-weight: 500;
+      background-color: $primary-color;
+    }
+  }
+}

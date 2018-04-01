@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import app from '@/components/app'
 import login from '@/components/login'
+import menu from '@/components/menu'
+import newChat from '@/components/new'
 import firebase from 'firebase'
 Vue.use(Router)
 
@@ -13,8 +15,19 @@ let router = new Router({
     },
     {
       path: '/c/',
-      name: 'app',
-      component: app,
+      name: 'menu',
+      component: menu,
+      meta: {
+        requiresAuth: true
+      },
+      params: {
+        id: false
+      }
+    },
+    {
+      path: '/new/',
+      name: 'newChat',
+      component: newChat,
       meta: {
         requiresAuth: true
       },
@@ -24,7 +37,7 @@ let router = new Router({
     },
     {
       path: '/c/:id',
-      name: 'appWithChat',
+      name: 'app',
       component: app,
       meta: {
         requiresAuth: true
@@ -39,7 +52,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const currentUser = firebase.auth().currentUser;
-  console.log(`requiresAuth: ${requiresAuth} user: ${currentUser}`);
+  //console.log(`requiresAuth: ${requiresAuth} user: ${currentUser}`);
   if (requiresAuth && !currentUser) {
     next('/');
   } else if (requiresAuth && currentUser) {

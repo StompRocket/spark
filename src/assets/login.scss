@@ -1,58 +1,32 @@
 @import 'varibles';
+@import 'nav';
 
 .login {
-  background-color: $secondary-accent;
-}
-
-.loginStack {
+  height: 100%;
   background-color: white;
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 60%;
-  border-radius: $rounding;
-  padding: 5%;
-  @media screen and (min-width: 1200px) {
-    height: 90%;
-  }
+  color: $primary-color;
 
-  h1 {
-    text-align: center;
-    font-size: 8vw;
-    font-weight: 600;
-    @media screen and (min-width: 1200px) {
+  main {
+    padding: 4%;
+
+    h2 {
+      font-size: 10vw;
+      font-weight: bold;
+      margin-bottom: 30%;
+    }
+
+    button {
+      width: 80%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      border: none;
+      border-radius: $rounding;
+      color: white;
+      height: 13vw;
       font-size: 5vw;
-    }
-  }
-
-  .loginButtons {
-    margin-top: 50%;
-    @media screen and (min-width: 1200px) {
-      margin-top: 5%;
-    }
-  }
-
-  button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: $secondary-accent;
-    border: none;
-    border-radius: $rounding;
-    color: white;
-    font-weight: 500;
-    width: 70%;
-    font-size: 4vw;
-    height: 10vw;
-    margin-top: 5vw;
-    @media screen and (min-width: 1200px) {
-      font-size: 2vw;
-      margin-top: 0;
-      width: 40%;
-      height: 5vw;
+      font-weight: 400;
+      background-color: $primary-color;
     }
   }
 }

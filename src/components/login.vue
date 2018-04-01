@@ -1,12 +1,17 @@
 <template >
 <div class="login page">
-  <div class="loginStack">
-    <h1>Login</h1>
+  <nav>
+    <h1 class="menuTitle">Spark</h1>
+  </nav>
+  <main>
+    <h2>Login</h2>
     <div class="loginButtons">
       <button @click="login">Login With Google</button>
     </div>
 
-  </div>
+  </main>
+
+
 </div>
 </template>
 

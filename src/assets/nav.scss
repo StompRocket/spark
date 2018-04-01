@@ -1,0 +1,35 @@
+nav {
+  height: 10%;
+  padding: 2%;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.16), 0 1px 1px rgba(0,0,0,0.23);
+  margin-bottom: 2px;
+  color: $primary-color;
+
+  .backBtn {
+    width: 20px;
+    float: left;
+    color: $primary-color;
+    text-decoration: none;
+    margin-top: 3%;
+  }
+
+  h1 {
+    display: inline-block;
+    width: 30%;
+    font-weight: bold;
+    font-size: 6vw;
+  }
+
+  h1.menuTitle {
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: 10vw;
+  }
+
+  h2 {
+    display: inline-block;
+    width: 40%;
+    line-height: 15vw;
+  }
+}
