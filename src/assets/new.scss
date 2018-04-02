@@ -1,0 +1,87 @@
+@import 'varibles';
+@import 'nav';
+
+.new {
+  button {
+    width: 100%;
+    border: none;
+    border-radius: $rounding;
+    color: white;
+    height: 15vw;
+    font-size: 5vw;
+    font-weight: 500;
+    background-color: $primary-color;
+    @media screen and (min-width: 760px) {
+      height: 7vw;
+      font-size: 2.5vw;
+    }
+    @media screen and (min-width: 1200px) {
+      height: 3vw;
+      font-size: 1.5vw;
+    }
+  }
+
+  .options {
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+    padding: 4%;
+
+    p {
+      color: $light;
+    }
+  }
+
+  .createNew {
+    height: 90%;
+    padding: 4%;
+
+    .newChatNameForm {
+      position: relative;
+      top: 40%;
+      transform: translateY(-50%);
+
+      h2 {
+        margin-bottom: 2%;
+        font-weight: bold;
+      }
+
+      .error {
+        color: $light;
+        font-size: 4vw;
+        @media screen and (min-width: 760px) {
+          font-size: 2vw;
+        }
+        @media screen and (min-width: 1200px) {
+          font-size: 1vw;
+        }
+      }
+
+      input {
+        padding: 2%;
+        border: none;
+        width: 100%;
+        background-color: $text-bubble;
+        border-radius: $rounding;
+        font-size: 5vw;
+        color: $primary-color;
+        height: 10vw;
+        @media screen and (min-width: 760px) {
+          height: 5vw;
+          font-size: 2.5vw;
+        }
+        @media screen and (min-width: 1200px) {
+          height: 2.5vw;
+          font-size: 1.25vw;
+        }
+      }
+    }
+
+    button {
+      position: absolute;
+      bottom: 0;
+      width: 85%;
+      margin: 4%;
+    }
+  }
+}

@@ -28,11 +28,25 @@
           if (file.match(/\.(js|css)$/)) { %>
     <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>">
     <% }}} %>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116671517-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116671517-1');
+      </script>
+
 </head>
 
 <body>
   <noscript>
-      This is your fallback content in case JavaScript fails to load.
+    <h1>Uh Oh...</h1>
+    <p>It looks like you have javascript disabled. Please enable it to use Spark.</p>
     </noscript>
   <div id="app"></div>
   <!-- Todo: only include in production -->

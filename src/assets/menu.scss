@@ -1,0 +1,142 @@
+@import 'varibles';
+@import 'nav';
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+.menu.page {
+  color: $primary-color;
+
+  .searchForm {
+    width: 100%;
+    margin-bottom: 4%;
+    margin-top: 2%;
+    @media screen and (min-width: 760px) {
+      margin-top: 1%;
+    }
+    @media screen and (min-width: 1200px) {
+      margin-top: 0.5%;
+    }
+
+    .searchChats {
+      background-color: $text-bubble;
+      border: none;
+      border-radius: $rounding;
+      width: 100%;
+      height: 11vw;
+      color: $primary-color;
+      padding: 2%;
+      @media screen and (min-width: 760px) {
+        height: 5vw;
+      }
+      @media screen and (min-width: 1200px) {
+        height: 2.5vw;
+      }
+    }
+  }
+
+  main {
+    height: 90%;
+    padding: 5%;
+    @media screen and (min-width: 760px) {
+      height: 95%;
+    }
+    @media screen and (min-width: 1200px) {
+      height: 93%;
+      padding-top: 2.5%;
+    }
+  }
+
+  h2 {
+    font-size: 6vw;
+    font-weight: bold;
+    @media screen and (min-width: 760px) {
+      font-size: 4vw;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 2vw;
+    }
+  }
+
+  .chatItem {
+    width: 100%;
+    display: inline-block;
+    margin: 4% 0;
+    @media screen and (min-width: 1200px) {
+      margin: 1% 0;
+    }
+
+    a {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: 100%;
+      color: $primary-color;
+      text-decoration: none;
+
+      img {
+        width: 20%;
+        height: 20%;
+        @media screen and (min-width: 760px) {
+          width: 7%;
+          height: 7%;
+        }
+        @media screen and (min-width: 1200px) {
+          width: 4%;
+          height: 4%;
+        }
+      }
+
+      .text {
+        margin-left: 4%;
+
+        p.name {
+          font-weight: 700;
+          margin-top: 4%;
+          width: 100%;
+        }
+
+        p.desc {
+          font-weight: 100;
+          color: $light;
+        }
+      }
+    }
+  }
+
+  .chats {
+    height: 70%;
+    @media screen and (min-width: 760px) {
+      height: 82%;
+    }
+    @media screen and (min-width: 1200px) {
+      height: 73%;
+    }
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .newChat {
+    text-decoration: none;
+    width: 100%;
+    border: none;
+    border-radius: $rounding;
+    color: white;
+    height: 15vw;
+    font-size: 5vw;
+    font-weight: bold;
+    background-color: $primary-color;
+    @media screen and (min-width: 760px) {
+      height: 7vw;
+      font-size: 2.5vw;
+    }
+    @media screen and (min-width: 1200px) {
+      height: 3vw;
+      font-size: 1.25vw;
+    }
+  }
+}

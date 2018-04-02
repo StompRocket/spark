@@ -1,0 +1,81 @@
+nav {
+  height: 10%;
+  padding: 2%;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.16), 0 1px 1px rgba(0,0,0,0.23);
+  margin-bottom: 2px;
+  color: $primary-color;
+  display: flex;
+  @media screen and (min-width: 760px) {
+    height: 5%;
+  }
+  @media screen and (min-width: 1020px) {
+    height: 7%;
+  }
+  @media screen and (min-width: 1200px) {
+    padding: 1%;
+  }
+
+  .toggle-button {
+    border: none;
+    background-color: white;
+    outline: none;
+    color: $primary-color;
+    display: inline-block;
+  }
+
+  .setting {
+    float: right;
+  }
+
+  .backBtn {
+    width: 20px;
+    float: left;
+    color: $primary-color;
+    text-decoration: none;
+    margin-top: 3%;
+    @media screen and (min-width: 760px) {
+      margin-top: 0;
+    }
+  }
+
+  h1 {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 6vw;
+    line-height: 13vw;
+    @media screen and (min-width: 760px) {
+      font-size: 5vw;
+      line-height: 2vw;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 2.5vw;
+      line-height: 1.25vw;
+    }
+  }
+
+  h1.menuTitle {
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: 10vw;
+    @media screen and (min-width: 760px) {
+      font-size: 5vw;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 2vw;
+    }
+  }
+
+  h2 {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+    line-height: 13vw;
+    @media screen and (min-width: 760px) {
+      line-height: 2.3vw;
+    }
+  }
+}

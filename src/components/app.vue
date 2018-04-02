@@ -1,40 +1,29 @@
 <template>
 <div class="app page">
-  <Slideout id="Slideout" menu="#menu" panel="#panel" @on-open="open" :toggleSelectors="['.toggle-button']">
-    <nav id="menu">
-      <h2>Chats</h2>
-      <div class="chats">
 
-        <div v-for="chat in chats" :key="chat.id" class="chatItem">
-          <a :href="'/#/c/'+chat.id" @click="loadChat(chat.id)">
-            <p class="name">{{chat.title}}</p>
-          </a>
-        </div>
+  <nav>
+    <button @click="openMenu" class="toggle-button"><i class="material-icons">arrow_back</i></button>
+    <h1>Spark</h1>
+    <h2>{{chatTitle}}</h2>
+    <button @click="openSettings" class="toggle-button setting"><i class="material-icons">settings</i></button>
+  </nav>
+
+  <div id="messages" class="messages">
+    <h1 v-if="loading">Loading</h1>
+    <div v-for="message in messages" class="message">
+      <div v-bind:class="{ mine: isMine(message) }" class="text">
+        <p class="messageText" v-html="richTextParse(message.text)"></p>
+
       </div>
-    </nav>
-    <main id="panel">
+      <p v-if="!isMine(message)" class="messageSender">{{message.sender.name}} {{time(message)}}</p>
 
-      <nav>
-        <button class="toggle-button"><i class="material-icons">menu</i></button>
-        <h1>Spark</h1>
-        <h2>{{chatTitle}}</h2>
-      </nav>
+    </div>
+  </div>
+  <form v-if="messages" class="newMessage" @submit.prevent="send">
+    <input autocomplete="off" type="text" name="newMessage" placeholder="Type your message here then press enter to send" v-model="newMessage">
+  </form>
 
-      <div @click="closeSlider" id="messages" class="messages">
-        <div v-for="message in messages" class="message">
-          <div v-bind:class="{ mine: isMine(message) }" class="text">
-            <p class="messageText" v-html="richTextParse(message.text)"></p>
 
-          </div>
-          <p v-if="!isMine(message)" class="messageSender">{{message.sender.name}}</p>
-
-        </div>
-      </div>
-      <form @click="closeSlider" class="newMessage" @submit.prevent="send">
-        <input autocomplete="off" type="text" name="newMessage" placeholder="Type your message here then press enter to send" v-model="newMessage">
-      </form>
-    </main>
-  </Slideout>
 </div>
 </template>
 
@@ -45,7 +34,7 @@ const linkifyHtml = require('linkifyjs/html');
 const moment = require('moment')
 
 import '../assets/app.scss'
-import Slideout from 'vue-slideout'
+
 export default {
   name: 'app',
   data() {
@@ -58,9 +47,7 @@ export default {
       chatTitle: null
     }
   },
-  components: {
-    Slideout
-  },
+
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -70,7 +57,7 @@ export default {
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
         uid = user.uid;
-        console.log(name, uid);
+
         firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
           for (const value of Object.values(snapshot.val())) {
             if (value.id) {
@@ -90,14 +77,21 @@ export default {
   },
 
   methods: {
+    openMenu() {
+      this.$router.replace('/c/')
+    },
+    openSettings() {
+      this.$router.push('/s/' + this.$route.params.id)
+    },
+
     isMine(message) {
-      console.log(message);
+      //  console.log(message);
       let user = firebase.auth().currentUser;
       let uid = user.uid;
       let name = user.displayName;
       if (message.sender.uid) {
         if (message.sender.uid === uid) {
-          console.log(message.sender.uid, uid);
+          //console.log(message.sender.uid, uid);
           return true
         } else {
           return false
@@ -107,35 +101,40 @@ export default {
       }
 
     },
-    open: function() {
-      console.log('slideoutOpen')
-    },
-    closeSlider() {
-      this.$children[0].slideout.close();
-    },
     loadChat(id = this.$route.params.id) {
       console.log('loading ' + id);
       let user = firebase.auth().currentUser;
       let uid = user.uid;
       let name = user.displayName;
-      this.$children[0].slideout.close();
+
       this.loading = true
       this.messages = []
       let objDiv = document.getElementById("messages");
-      firebase.database().ref('chats/' + id).on('value', (snapshot) => {
+      firebase.database().ref('chats/' + id).once('value', (snapshot) => {
         if (snapshot.val()) {
           this.chatTitle = snapshot.val().title
+
           firebase.database().ref('users/' + uid + '/' + id).set({
             title: snapshot.val().title,
-            id: id
-          })
-          let chatRef = firebase.database().ref('chats/' + id + '/mesages/');
-          chatRef.on('child_added', (data) => {
-            this.messages.push(data.val())
+            id: id,
+            time: Date.now()
+          });
+          this.messages = snapshot.val().mesages
+          //  console.log('first ' + moment().format('h:mm:ss a'));
+          objDiv.scrollTop = objDiv.scrollHeight;
+          this.scrollBottom();
+          this.loading = false
+
+          let chatRef = firebase.database().ref('chats/' + id + '/mesages/').limitToLast(100);
+          chatRef.on('value', (data) => {
+            //console.log('second ' + moment().format('h:mm:ss a'));
+            this.messages = data.val()
             objDiv.scrollTop = objDiv.scrollHeight;
             this.scrollBottom()
-            this.loading = false
-          });
+
+
+
+          })
 
 
         } else {
@@ -148,6 +147,7 @@ export default {
 
 
     },
+
     scrollBottom() {
       let objDiv = document.getElementById("messages");
       setTimeout(function() {
@@ -180,12 +180,33 @@ export default {
         sender: {
           name: name,
           image: photoUrl,
-          time: timeStamp,
+          time: Date.now(),
           uid: uid
         },
         text: this.newMessage
       });
       this.newMessage = ''
+      let updates = {}
+      updates['chats/' + chatID + '/time/'] = Date.now()
+      firebase.database().ref().update(updates);
+
+    },
+    time(message) {
+      let time = message.sender.time
+      if (time) {
+        let format = moment(time).format("dddd, MMMM Do, h:mm")
+        //console.log(time, format);
+        if (format && format != 'Invalid date') {
+
+          //  console.log('there is time');
+
+          return format
+        } else {
+          return ''
+        }
+      } else {
+        return ''
+      }
 
     }
 
