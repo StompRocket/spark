@@ -15,6 +15,9 @@ textarea:focus {
     width: 100%;
     margin-bottom: 4%;
     margin-top: 2%;
+    @media screen and (min-width: 760px) {
+      margin-top: 1%;
+    }
 
     .searchChats {
       background-color: $text-bubble;
@@ -24,17 +27,26 @@ textarea:focus {
       height: 11vw;
       color: $primary-color;
       padding: 2%;
+      @media screen and (min-width: 760px) {
+        height: 5vw;
+      }
     }
   }
 
   main {
     height: 90%;
     padding: 5%;
+    @media screen and (min-width: 760px) {
+      height: 95%;
+    }
   }
 
   h2 {
     font-size: 6vw;
     font-weight: bold;
+    @media screen and (min-width: 760px) {
+      font-size: 4vw;
+    }
   }
 
   .chatItem {
@@ -53,6 +65,10 @@ textarea:focus {
       img {
         width: 20%;
         height: 20%;
+        @media screen and (min-width: 760px) {
+          width: 7%;
+          height: 7%;
+        }
       }
 
       .text {
@@ -74,6 +90,9 @@ textarea:focus {
 
   .chats {
     height: 70%;
+    @media screen and (min-width: 760px) {
+      height: 82%;
+    }
     overflow-y: scroll;
     overflow-x: hidden;
   }
@@ -88,5 +107,8 @@ textarea:focus {
     font-size: 5vw;
     font-weight: bold;
     background-color: $primary-color;
+    @media screen and (min-width: 760px) {
+      height: 7vw;
+    }
   }
 }

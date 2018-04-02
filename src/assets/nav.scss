@@ -5,13 +5,24 @@ nav {
   margin-bottom: 2px;
   color: $primary-color;
   display: flex;
+  @media screen and (min-width: 760px) {
+    height: 5%;
+  }
+  @media screen and (min-width: 1020px) {
+    height: 7%;
+  }
 
   .toggle-button {
     border: none;
     background-color: white;
     outline: none;
     color: $primary-color;
-    display: block;
+    display: inline-block;
+    background-color: red;
+  }
+
+  .setting {
+    float: right;
   }
 
   .backBtn {
@@ -20,14 +31,19 @@ nav {
     color: $primary-color;
     text-decoration: none;
     margin-top: 3%;
+    background-color: red;
   }
 
   h1 {
+    background-color: red;
     display: inline-block;
-    width: 30%;
     font-weight: bold;
     font-size: 6vw;
     line-height: 13vw;
+    @media screen and (min-width: 760px) {
+      font-size: 5vw;
+      line-height: 2vw;
+    }
   }
 
   h1.menuTitle {
@@ -35,13 +51,22 @@ nav {
     text-align: center;
     display: block;
     font-size: 10vw;
+    @media screen and (min-width: 760px) {
+      font-size: 5vw;
+    }
+    @media screen and (min-width: 1020px) {
+      font-size: 3vw;
+    }
   }
 
   h2 {
-    height: 100%;
-    display: block;
-    width: 40%;
-    overflow: hidden;
+    background-color: rgba(175, 219, 233, 0.62);
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
     line-height: 13vw;
   }
 }

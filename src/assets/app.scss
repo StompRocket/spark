@@ -14,6 +14,9 @@ textarea:focus {
   overflow-x: hidden;
   margin-left: 2%;
   margin-right: 2%;
+  @media screen and (min-width: 760px) {
+    height: 85%;
+  }
 
   a {
     color: $primary-accent;
@@ -38,6 +41,9 @@ textarea:focus {
       padding: 2% 5%;
       word-wrap: break-word;
       overflow: hidden;
+      @media screen and (min-width: 760px) {
+        padding: 1% 3%;
+      }
     }
 
     .text.mine {
@@ -49,6 +55,10 @@ textarea:focus {
 
     .messageText {
       margin-bottom: 0;
+      font-size: 4vw;
+      @media screen and (min-width: 760px) {
+        font-size: 2vw;
+      }
     }
 
     .messageSender {
@@ -56,13 +66,15 @@ textarea:focus {
       margin-top: 1px;
       font-size: 3vw;
       margin-left: 10px;
+      @media screen and (min-width: 760px) {
+        font-size: 1.5vw;
+      }
     }
   }
 }
 
 .newMessage {
   padding: 2%;
-  height: 15vw;
   width: 100%;
   padding-left: 4%;
   height: 10%;
