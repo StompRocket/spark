@@ -12,7 +12,7 @@
     <h2>Chats</h2>
     <div class="chats">
 
-      <div v-for="chat in chats" :key="chat.id" class="chatItem">
+      <div v-for="chat in chatsByDate" :key="chat.id" class="chatItem">
         <a :href="'/#/c/'+chat.id">
             <img src="../assets/placeholder.png" alt="">
             <div class="text">
@@ -62,25 +62,30 @@ export default {
           for (const value of Object.values(snapshot.val())) {
             if (value.id) {
               value.time = 'a while ago'
+              value.utc = Date.now() - 5000000
               let id = value.id
               firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
-
+                //console.log(snapshot.val());
                 let format;
-                if (snapshot.val().time) {
-                  let time = snapshot.val().time
-                  format = moment(time).format("dddd, MMMM Do, h:mm")
-                  //console.log(time, format);
-                  if (format && format != 'Invalid date') {
+                if (snapshot.val()) {
+                  if (snapshot.val().time) {
+                    let time = snapshot.val().time
+                    value.utc = time
+                    format = moment(time).format("dddd, MMMM Do, h:mm")
+                    //console.log(time, format);
+                    if (format && format != 'Invalid date') {
 
+                    } else {
+                      formet = 'a while ago'
+                    }
                   } else {
-                    formet = 'a while ago'
+                    format = 'a while ago'
                   }
-                } else {
-                  format = 'a while ago'
+                  //  console.log('format ' + format);
+                  value.time = format
+                  this.chats.push(value)
                 }
-                console.log('format ' + format);
-                value.time = format
-                this.chats.push(value)
+
               })
 
 
@@ -94,33 +99,23 @@ export default {
       }
     });
   },
+  computed: {
+    chatsByDate: function() {
+      return this.chats.sort((a, b) => {
+        if (a.utc > b.utc) {
+          return -1
+        } else if (a.utc < b.utc) {
+          return 1
+        } else {
+          return 0
+        }
+      })
+    }
+  },
   methods: {
+
     newChat() {
       this.$router.replace('/new/')
-    },
-    time(chat) {
-      let id = chat.id
-      firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
-        console.log(snapshot.val(), 'Chat TIME!');
-
-        let format;
-        if (snapshot.val().time) {
-          let time = snapshot.val().time
-          format = moment(time).format("dddd, MMMM Do, h:mm")
-          //console.log(time, format);
-          if (format && format != 'Invalid date') {
-
-          } else {
-            formet = 'a while ago'
-          }
-        } else {
-          format = 'a while ago'
-        }
-        console.log('format ' + format);
-        return format
-      })
-
-
     }
   }
 
