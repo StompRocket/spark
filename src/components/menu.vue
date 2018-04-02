@@ -5,7 +5,7 @@
   </nav>
   <h1 v-if="loading">Loading</h1>
   <main v-if="!loading">
-    <form class="searchForm">
+    <form v-if="false" class="searchForm">
       <input type="text" class="searchChats" name="searchChats" value="" placeholder="Search">
     </form>
 
