@@ -17,7 +17,7 @@
             <img src="../assets/placeholder.png" alt="">
             <div class="text">
               <p class="name">{{chat.title}}</p>
-              <p class="desc">{{time(chat)}}</p>
+              <p class="desc">{{chat.time}}</p>
             </div>
 
           </a>
@@ -61,7 +61,30 @@ export default {
         firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
           for (const value of Object.values(snapshot.val())) {
             if (value.id) {
-              this.chats.push(value)
+              value.time = 'a while ago'
+              let id = value.id
+              firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
+
+                let format;
+                if (snapshot.val().time) {
+                  let time = snapshot.val().time
+                  format = moment(time).format("dddd, MMMM Do, h:mm")
+                  //console.log(time, format);
+                  if (format && format != 'Invalid date') {
+
+                  } else {
+                    formet = 'a while ago'
+                  }
+                } else {
+                  format = 'a while ago'
+                }
+                console.log('format ' + format);
+                value.time = format
+                this.chats.push(value)
+              })
+
+
+
             }
           }
           this.loading = false
