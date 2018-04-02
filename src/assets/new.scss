@@ -11,6 +11,10 @@
     font-size: 5vw;
     font-weight: 500;
     background-color: $primary-color;
+    @media screen and (min-width: 760px) {
+      height: 7vw;
+      font-size: 2.5vw;
+    }
   }
 
   .options {
@@ -41,6 +45,9 @@
       .error {
         color: $light;
         font-size: 4vw;
+        @media screen and (min-width: 760px) {
+          font-size: 2vw;
+        }
       }
 
       input {
@@ -52,6 +59,10 @@
         font-size: 5vw;
         color: $primary-color;
         height: 10vw;
+        @media screen and (min-width: 760px) {
+          height: 5vw;
+          font-size: 2.5vw;
+        }
       }
     }
 

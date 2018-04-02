@@ -5,7 +5,7 @@
     <button @click="openMenu" class="toggle-button"><i class="material-icons">arrow_back</i></button>
     <h1>Spark</h1>
     <h2>{{chatTitle}}</h2>
-    <button @click="openSettings" class="toggle-button"><i class="material-icons">settings</i></button>
+    <button @click="openSettings" class="toggle-button setting"><i class="material-icons">settings</i></button>
   </nav>
 
   <div id="messages" class="messages">

@@ -109,6 +109,7 @@ textarea:focus {
     background-color: $primary-color;
     @media screen and (min-width: 760px) {
       height: 7vw;
+      font-size: 2.5vw;
     }
   }
 }
