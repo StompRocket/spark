@@ -5,8 +5,8 @@
     <h1 class="">Spark</h1>
     <h2>{{chatTitle}}</h2>
   </nav>
-  <h1 v-if="loading == 0">Loading</h1>
-  <main v-if="loading >= 2">
+  <h1 v-if="loading">Loading</h1>
+  <main v-if="!loading">
     <h1>Settings</h1>
     <form @submit.prevent='rename' class="settingsRow">
       <p class="desc">Chat Name <span>{{titleError}}</span></p>
@@ -37,7 +37,7 @@ export default {
       chatTitle: '',
       chatTitleEdited: '',
       titleError: '',
-      loading: 0,
+      loading: true,
       notifications: ''
     }
   },
@@ -58,7 +58,7 @@ export default {
             if (snapshot.val()) {
               this.chatTitle = snapshot.val().title
               this.chatTitleEdited = snapshot.val().title
-              this.loading++
+              this.loading = fase
             } else {
               this.$router.replace('/c/')
             }
