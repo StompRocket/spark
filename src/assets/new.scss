@@ -15,6 +15,10 @@
       height: 7vw;
       font-size: 2.5vw;
     }
+    @media screen and (min-width: 1200px) {
+      height: 3vw;
+      font-size: 1.5vw;
+    }
   }
 
   .options {
@@ -48,6 +52,9 @@
         @media screen and (min-width: 760px) {
           font-size: 2vw;
         }
+        @media screen and (min-width: 1200px) {
+          font-size: 1vw;
+        }
       }
 
       input {
@@ -62,6 +69,10 @@
         @media screen and (min-width: 760px) {
           height: 5vw;
           font-size: 2.5vw;
+        }
+        @media screen and (min-width: 1200px) {
+          height: 2.5vw;
+          font-size: 1.25vw;
         }
       }
     }

@@ -12,6 +12,9 @@
       @media screen and (min-width: 760px) {
         font-size: 3vw;
       }
+      @media screen and (min-width: 1200px) {
+        font-size: 1.5vw;
+      }
     }
 
     .settingsRow {
@@ -29,6 +32,9 @@
         @media screen and (min-width: 760px) {
           font-size: 2vw;
         }
+        @media screen and (min-width: 1200px) {
+          font-size: 1vw;
+        }
 
         span {
           font-weight: 700;
@@ -36,6 +42,9 @@
           font-size: 3vw;
           @media screen and (min-width: 760px) {
             font-size: 1.5vw;
+          }
+          @media screen and (min-width: 1200px) {
+            font-size: 1vw;
           }
         }
       }
@@ -54,6 +63,10 @@
         font-size: 2vw;
         height: 5vw;
       }
+      @media screen and (min-width: 1200px) {
+        font-size: 1vw;
+        height: 2.5vw;
+      }
     }
 
     .saveBtn {
@@ -69,6 +82,10 @@
       @media screen and (min-width: 760px) {
         font-size: 1.5vw;
         height: 5vw;
+      }
+      @media screen and (min-width: 1200px) {
+        font-size: 1vw;
+        height: 3vw;
       }
     }
 
@@ -86,6 +103,10 @@
       @media screen and (min-width: 760px) {
         font-size: 2vw;
         height: 5vw;
+      }
+      @media screen and (min-width: 1200px) {
+        font-size: 1vw;
+        height: 2.5vw;
       }
     }
   }

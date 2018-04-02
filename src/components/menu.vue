@@ -62,7 +62,7 @@ export default {
           for (const value of Object.values(snapshot.val())) {
             if (value.id) {
               value.time = 'a while ago'
-              value.utc = Date.now() - 5000000
+              value.utc = Date.now() - 50000000
               let id = value.id
               firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
                 //console.log(snapshot.val());
