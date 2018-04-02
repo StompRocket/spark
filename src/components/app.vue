@@ -113,14 +113,16 @@ export default {
       firebase.database().ref('chats/' + id).once('value', (snapshot) => {
         if (snapshot.val()) {
           this.chatTitle = snapshot.val().title
+
           firebase.database().ref('users/' + uid + '/' + id).set({
             title: snapshot.val().title,
-            id: id
-          })
+            id: id,
+            time: Date.now()
+          });
           this.messages = snapshot.val().mesages
           //  console.log('first ' + moment().format('h:mm:ss a'));
           objDiv.scrollTop = objDiv.scrollHeight;
-          this.scrollBottom()
+          this.scrollBottom();
           this.loading = false
 
           let chatRef = firebase.database().ref('chats/' + id + '/mesages/').limitToLast(100);
@@ -184,6 +186,9 @@ export default {
         text: this.newMessage
       });
       this.newMessage = ''
+      let updates = {}
+      updates['chats/' + chatID + '/time/'] = Date.now()
+      firebase.database().ref().update(updates);
 
     },
     time(message) {

@@ -5,14 +5,15 @@
     <h1 class="">Spark</h1>
     <h2>{{chatTitle}}</h2>
   </nav>
-  <h1 v-if="loading">Loading</h1>
-  <main v-if="!loading">
+  <h1 v-if="loading == 0">Loading</h1>
+  <main v-if="loading >= 2">
     <h1>Settings</h1>
     <form @submit.prevent='rename' class="settingsRow">
       <p class="desc">Chat Name <span>{{titleError}}</span></p>
-      <input v-model="chatTitleEdited" class="settingsInput" type="text" name="chatName" placeholder="chat name">
+      <input autocomplete="off" v-model="chatTitleEdited" class="settingsInput" type="text" name="chatName" placeholder="chat name">
       <button class="saveBtn" type="button" name="saveName">Save</button>
     </form>
+    <button @click="deleteChat" type="button" name="delete" class="deleteBtn">Delete</button>
 
   </main>
 
@@ -23,6 +24,7 @@
 
 <script>
 import firebase from 'firebase'
+import swal from 'sweetalert';
 const linkify = require('linkifyjs');
 const linkifyHtml = require('linkifyjs/html');
 const moment = require('moment')
@@ -35,7 +37,8 @@ export default {
       chatTitle: '',
       chatTitleEdited: '',
       titleError: '',
-      loading: true
+      loading: 0,
+      notifications: ''
     }
   },
   created() {
@@ -55,7 +58,15 @@ export default {
             if (snapshot.val()) {
               this.chatTitle = snapshot.val().title
               this.chatTitleEdited = snapshot.val().title
-              this.loading = false
+              this.loading++
+            } else {
+              this.$router.replace('/c/')
+            }
+          })
+          firebase.database().ref('users' + '/' + uid + '/' + id).on('value', (snapshot) => {
+            if (snapshot.val()) {
+              this.notifications = snapshot.val().alerts
+              this.loading++
             } else {
               this.$router.replace('/c/')
             }
@@ -72,6 +83,7 @@ export default {
     back() {
       this.$router.push('/c/' + this.$route.params.id)
     },
+
     rename() {
       let name = this.chatTitleEdited
       let user = firebase.auth().currentUser
@@ -94,6 +106,26 @@ export default {
       } else {
         this.titleError = 'chat name is required'
       }
+    },
+    deleteChat() {
+      swal({
+          title: "Are you sure?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            let name = this.chatTitleEdited
+            let user = firebase.auth().currentUser
+            let uid = user.uid
+            let id = this.$route.params.id
+            console.log('deleteing');
+            firebase.database().ref('users' + '/' + uid + '/' + id).remove()
+
+            this.$router.replace('/c/')
+          }
+        });
     }
   }
 }

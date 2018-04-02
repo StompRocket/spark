@@ -3,7 +3,8 @@
   <nav>
     <h1 class="menuTitle">Spark</h1>
   </nav>
-  <main>
+  <h1 v-if="loading">Loading</h1>
+  <main v-if="!loading">
     <form class="searchForm">
       <input type="text" class="searchChats" name="searchChats" value="" placeholder="Search">
     </form>
@@ -16,7 +17,7 @@
             <img src="../assets/placeholder.png" alt="">
             <div class="text">
               <p class="name">{{chat.title}}</p>
-              <p class="desc">10 minutes ago</p>
+              <p class="desc">{{time(chat)}}</p>
             </div>
 
           </a>
@@ -43,7 +44,8 @@ export default {
   name: 'chatMenu',
   data() {
     return {
-      chats: []
+      chats: [],
+      loading: true
     }
   },
   created() {
@@ -72,6 +74,30 @@ export default {
   methods: {
     newChat() {
       this.$router.replace('/new/')
+    },
+    time(chat) {
+      let id = chat.id
+      firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
+        console.log(snapshot.val(), 'Chat TIME!');
+
+        let format;
+        if (snapshot.val().time) {
+          let time = snapshot.val().time
+          format = moment(time).format("dddd, MMMM Do, h:mm")
+          //console.log(time, format);
+          if (format && format != 'Invalid date') {
+
+          } else {
+            formet = 'a while ago'
+          }
+        } else {
+          format = 'a while ago'
+        }
+        console.log('format ' + format);
+        return format
+      })
+
+
     }
   }
 

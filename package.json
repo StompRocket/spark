@@ -17,6 +17,7 @@
     "minireset.css": "0.0.3",
     "moment": "^2.22.0",
     "slideout": "^1.0.1",
+    "sweetalert": "^2.1.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-slideout": "^1.7.0"
