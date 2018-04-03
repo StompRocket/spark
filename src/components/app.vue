@@ -81,6 +81,7 @@ export default {
       this.$router.replace('/c/')
     },
     openSettings() {
+      //  console.log('settings');
       this.$router.push('/s/' + this.$route.params.id)
     },
 

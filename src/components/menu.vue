@@ -49,6 +49,7 @@ export default {
     }
   },
   created() {
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         let name, email, photoUrl, uid, emailVerified;
@@ -57,43 +58,51 @@ export default {
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
         uid = user.uid;
+        console.log(uid);
         //  console.log(name, uid);
         firebase.database().ref('/users/' + uid).on('value', (snapshot) => {
-          for (const value of Object.values(snapshot.val())) {
-            if (value.id) {
-              value.time = 'a while ago'
-              value.utc = Date.now() - 50000000
-              let id = value.id
-              firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
-                //console.log(snapshot.val());
-                let format;
-                if (snapshot.val()) {
-                  if (snapshot.val().time) {
-                    let time = snapshot.val().time
-                    value.utc = time
-                    format = moment(time).format("dddd, MMMM Do, h:mm")
-                    //console.log(time, format);
-                    if (format && format != 'Invalid date') {
+          if (snapshot.val()) {
+            for (const value of Object.values(snapshot.val())) {
+              if (value.id) {
+                value.time = 'a while ago'
+                value.utc = Date.now() - 50000000
+                let id = value.id
+                firebase.database().ref('/chats/' + id).once('value').then((snapshot) => {
+                  //console.log(snapshot.val());
+                  let format;
+                  if (snapshot.val()) {
+                    if (snapshot.val().time) {
+                      let time = snapshot.val().time
+                      value.utc = time
+                      format = moment(time).format("dddd, MMMM Do, h:mm")
+                      //console.log(time, format);
+                      if (format && format != 'Invalid date') {
 
+                      } else {
+                        formet = 'a while ago'
+                      }
                     } else {
-                      formet = 'a while ago'
+                      format = 'a while ago'
                     }
-                  } else {
-                    format = 'a while ago'
+                    //  console.log('format ' + format);
+                    value.time = format
+                    this.chats.push(value)
+                    this.loading = false
                   }
-                  //  console.log('format ' + format);
-                  value.time = format
-                  this.chats.push(value)
-                }
 
-              })
+                })
 
 
 
+              }
             }
+          } else {
+            this.loading = false
           }
-          this.loading = false
+
+
         });
+
       } else {
         this.$router.replace('/')
       }

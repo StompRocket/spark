@@ -10,10 +10,13 @@ Vue.use(Router)
 
 let router = new Router({
   routes: [{
-    path: '/',
-    name: 'Login',
-    component: login
-  },
+      path: '/',
+      name: 'Login',
+      component: login,
+      props: {
+        redirect: false
+      }
+    },
     {
       path: '/c/',
       name: 'menu',
@@ -31,9 +34,6 @@ let router = new Router({
       component: newChat,
       meta: {
         requiresAuth: true
-      },
-      params: {
-        id: false
       }
     },
     {
@@ -77,7 +77,14 @@ router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser
   // console.log(`requiresAuth: ${requiresAuth} user: ${currentUser}`);
   if (requiresAuth && !currentUser) {
-    next('/')
+    console.log(to.path);
+    localStorage.setItem("redirect", to.path);
+    next({
+      name: 'Login',
+      props: {
+        redirect: to.path
+      }
+    })
   } else if (requiresAuth && currentUser) {
     next()
   } else {

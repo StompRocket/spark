@@ -42,6 +42,7 @@ export default {
     }
   },
   created() {
+    console.log('settings ui');
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         let name, email, photoUrl, uid, emailVerified;
@@ -58,19 +59,12 @@ export default {
             if (snapshot.val()) {
               this.chatTitle = snapshot.val().title
               this.chatTitleEdited = snapshot.val().title
-              this.loading = fase
+              this.loading = false
             } else {
               this.$router.replace('/c/')
             }
           })
-          firebase.database().ref('users' + '/' + uid + '/' + id).on('value', (snapshot) => {
-            if (snapshot.val()) {
-              this.notifications = snapshot.val().alerts
-              this.loading++
-            } else {
-              this.$router.replace('/c/')
-            }
-          })
+
         } else {
           this.$router.replace('/c/')
         }
