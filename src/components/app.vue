@@ -176,20 +176,22 @@ export default {
         // this value to authenticate with your backend server, if
         // you have one. Use User.getToken() instead.
       }
-
-      newMessageRef.set({
-        sender: {
-          name: name,
-          image: photoUrl,
-          time: Date.now(),
-          uid: uid
-        },
-        text: this.newMessage
-      });
-      this.newMessage = ''
-      let updates = {}
-      updates['chats/' + chatID + '/time/'] = Date.now()
-      firebase.database().ref().update(updates);
+      if (/\S/.test(this.newMessage)) {
+        console.log(this.newMessage.length, this.newMessage);
+        newMessageRef.set({
+          sender: {
+            name: name,
+            image: photoUrl,
+            time: Date.now(),
+            uid: uid
+          },
+          text: this.newMessage
+        });
+        this.newMessage = ''
+        let updates = {}
+        updates['chats/' + chatID + '/time/'] = Date.now()
+        firebase.database().ref().update(updates);
+      }
 
     },
     time(message) {

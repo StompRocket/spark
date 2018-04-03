@@ -5,6 +5,25 @@
   main {
     padding: 4%;
 
+    .joinCode {
+      background-color: $text-bubble;
+      border: none;
+      border-radius: $rounding;
+      display: inline-block;
+      height: 10vw;
+      font-weight: 5vw;
+      padding: 1%;
+      font-size: 4vw;
+      @media screen and (min-width: 760px) {
+        font-size: 2vw;
+        height: 5vw;
+      }
+      @media screen and (min-width: 1200px) {
+        font-size: 1vw;
+        height: 2.5vw;
+      }
+    }
+
     h1 {
       font-weight: bold;
       font-size: 6vw;
