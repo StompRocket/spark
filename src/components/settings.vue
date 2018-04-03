@@ -13,7 +13,7 @@
       <input autocomplete="off" v-model="chatTitleEdited" class="settingsInput" type="text" name="chatName" placeholder="chat name">
       <button class="saveBtn" type="button" name="saveName">Save</button>
     </form>
-    <p>Use this code to join this chat</p>
+    <p>Have a friend enter this code into their device after hitting new chat more info go to the docs</p>
     <p class="joinCode">{{joinCode}}</p>
     <button @click="deleteChat" type="button" name="delete" class="deleteBtn">Delete</button>
 
@@ -70,21 +70,29 @@ export default {
         if (this.$route.params.id) {
           let id = this.$route.params.id
 
-          firebase.database().ref('chats/' + id).on('value', (snapshot) => {
+          firebase.database().ref('chats/' + id + '/title').on('value', (snapshot) => {
             if (snapshot.val()) {
-              this.chatTitle = snapshot.val().title
-              this.chatTitleEdited = snapshot.val().title
+              this.chatTitle = snapshot.val()
+              this.chatTitleEdited = snapshot.val()
               this.loading = false
               let hash = id.hashCode()
+              hash = String(hash)
+              hash = hash.replace('-', '')
+              hash = Number(hash)
               let hashids = new Hashids(id);
               let encoded = hashids.encode(hash)
               this.joinCode = encoded
               console.log(encoded, hash, id);
-              firebase.database().ref('codeRef/' + encoded).set({
-                joinCode: encoded,
-                id: id,
-                title: this.chatTitle
-              });
+              if (encoded) {
+                firebase.database().ref('codeRef/' + encoded).set({
+                  joinCode: encoded,
+                  id: id,
+                  title: this.chatTitle
+                });
+              } else {
+                console.log('error');
+              }
+
             } else {
               this.$router.replace('/c/')
             }
