@@ -13,6 +13,8 @@
       <input autocomplete="off" v-model="chatTitleEdited" class="settingsInput" type="text" name="chatName" placeholder="chat name">
       <button class="saveBtn" type="button" name="saveName">Save</button>
     </form>
+    <p>Use this code to join this chat</p>
+    <p class="joinCode">{{joinCode}}</p>
     <button @click="deleteChat" type="button" name="delete" class="deleteBtn">Delete</button>
 
   </main>
@@ -28,7 +30,18 @@ import swal from 'sweetalert';
 const linkify = require('linkifyjs');
 const linkifyHtml = require('linkifyjs/html');
 const moment = require('moment')
-
+const Hashids = require('hashids');
+String.prototype.hashCode = function() {
+  var hash = 0,
+    i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr = this.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
 import '../assets/settings.scss'
 export default {
   name: 'settings',
@@ -38,7 +51,8 @@ export default {
       chatTitleEdited: '',
       titleError: '',
       loading: true,
-      notifications: ''
+      notifications: '',
+      joinCode: ''
     }
   },
   created() {
@@ -55,11 +69,22 @@ export default {
 
         if (this.$route.params.id) {
           let id = this.$route.params.id
+
           firebase.database().ref('chats/' + id).on('value', (snapshot) => {
             if (snapshot.val()) {
               this.chatTitle = snapshot.val().title
               this.chatTitleEdited = snapshot.val().title
               this.loading = false
+              let hash = id.hashCode()
+              let hashids = new Hashids(id);
+              let encoded = hashids.encode(hash)
+              this.joinCode = encoded
+              console.log(encoded, hash, id);
+              firebase.database().ref('codeRef/' + encoded).set({
+                joinCode: encoded,
+                id: id,
+                title: this.chatTitle
+              });
             } else {
               this.$router.replace('/c/')
             }

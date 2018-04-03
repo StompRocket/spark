@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "firebase": "^4.12.1",
+    "hashids": "^1.1.4",
     "linkifyjs": "^2.1.6",
     "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0-beta",
