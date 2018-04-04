@@ -8,7 +8,7 @@
   <div v-if="options" class="options">
     <button @click="createNew">Create New</button>
     <p>or</p>
-    <button @click="inviteCode">Enter Invite Code</button>
+    <button @click="openInviteCode">Enter Invite Code</button>
   </div>
 
 
@@ -21,6 +21,14 @@
     <button @click="create">Create</button>
   </div>
 
+  <div v-if="invite" class="createNew">
+    <form @submit.prevent="fromInvite" class="newChatNameForm">
+      <h2>Please enter the chat invite code</h2>
+      <input v-model="inviteCode" type="text" name="joinCode" value="" placeholder="e05GxPK">
+      <p class="error">{{inviteError}}</p>
+    </form>
+    <button @click="fromInvite">Join</button>
+  </div>
 
 
 </div>
@@ -37,10 +45,13 @@ export default {
   name: 'newChat',
   data() {
     return {
-      options: false,
-      createNewView: true,
+      options: true,
+      createNewView: false,
+      inviteCode: '',
+      invite: false,
       newChatName: '',
-      error: 'must be less than 15 characters'
+      error: 'must be less than 15 characters',
+      inviteError: ''
     }
   },
   created() {
@@ -63,8 +74,28 @@ export default {
       this.options = false
       this.createNewView = true;
     },
-    inviteCode() {
+    openInviteCode() {
       this.options = false
+      this.invite = true
+    },
+    fromInvite() {
+
+      let user = firebase.auth().currentUser
+      let uid = user.uid
+      if (this.inviteCode) {
+        firebase.database().ref('/codeRef/' + this.inviteCode).once('value').then((snapshot) => {
+          if (snapshot.val()) {
+            console.log(snapshot.val());
+            this.inviteError = "success!"
+            this.$router.push('/c/' + snapshot.val().id)
+
+          } else {
+            this.inviteError = "code invalid"
+          }
+        });
+      } else {
+        this.inviteError = "join code required"
+      }
     },
     create() {
       let name = this.newChatName
