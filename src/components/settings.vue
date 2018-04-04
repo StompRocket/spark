@@ -13,7 +13,7 @@
       <input autocomplete="off" v-model="chatTitleEdited" class="settingsInput" type="text" name="chatName" placeholder="chat name">
       <button class="saveBtn" type="button" name="saveName">Save</button>
     </form>
-    <p>Have a friend enter this code into their device after hitting new chat more info go to the docs</p>
+    <p>Have a friend enter this code into their device after hitting new chat for more info go to the docs</p>
     <p class="joinCode">{{joinCode}}</p>
     <button @click="deleteChat" type="button" name="delete" class="deleteBtn">Delete</button>
 
