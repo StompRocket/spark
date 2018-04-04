@@ -111,38 +111,48 @@ export default {
       this.loading = true
       this.messages = []
       let objDiv = document.getElementById("messages");
-      firebase.database().ref('chats/' + id).once('value', (snapshot) => {
-        if (snapshot.val()) {
-          this.chatTitle = snapshot.val().title
-
-          firebase.database().ref('users/' + uid + '/' + id).set({
-            title: snapshot.val().title,
-            id: id,
-            time: Date.now()
-          });
-          this.messages = snapshot.val().mesages
-          //  console.log('first ' + moment().format('h:mm:ss a'));
-          objDiv.scrollTop = objDiv.scrollHeight;
-          this.scrollBottom();
+      let chatRef = firebase.database().ref('chats/' + id + '/mesages/').limitToLast(10);
+      chatRef.once('value', (data) => {
+        if (data.val()) {
+          this.messages = data.val()
           this.loading = false
+          let startTime = Date.now()
+          objDiv.scrollTop = objDiv.scrollHeight;
+          this.scrollBottom()
+          firebase.database().ref('chats/' + id).on('value', (snapshot) => {
+            if (snapshot.val()) {
+              this.chatTitle = snapshot.val().title
 
-          let chatRef = firebase.database().ref('chats/' + id + '/mesages/').limitToLast(100);
-          chatRef.on('value', (data) => {
-            //console.log('second ' + moment().format('h:mm:ss a'));
-            this.messages = data.val()
-            objDiv.scrollTop = objDiv.scrollHeight;
-            this.scrollBottom()
+              firebase.database().ref('users/' + uid + '/' + id).set({
+                title: snapshot.val().title,
+                id: id,
+                time: Date.now()
+              });
+              this.messages = snapshot.val().mesages
+              //  console.log('first ' + moment().format('h:mm:ss a'));
+              objDiv.scrollTop = objDiv.scrollHeight;
+              this.scrollBottom();
+              let endTime = Date.now()
+              console.log(endTime - startTime);
+              this.loading = false
 
 
+
+            } else {
+              this.$router.replace('/c/')
+            }
 
           })
-
-
         } else {
           this.$router.replace('/c/')
         }
+        //console.log('second ' + moment().format('h:mm:ss a'));
+
+
+
 
       })
+
 
 
 
